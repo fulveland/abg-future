@@ -5,8 +5,7 @@
   hyphens: auto;
 }
 
-audio, canvas, iframe, img, object, picture, svg, video {
-  display: block;
+img {
   max-width: 100%;
 }
 

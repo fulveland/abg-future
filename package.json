@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Alberta Basketry Guild Website",
   "devDependencies": {
-    "sweetbread": "0.2.2"
+    "sweetbread": "0.2.3"
   },
   "license": "UNLICENSED",
   "private": true

@@ -1,5 +1,12 @@
 # Alberta Basketry Guild Future Website
 
+### Dependencies
+CoffeeScript, Node, and the following brews:
+
+```
+brew install harfbuzz woff2
+```
+
 ### Building
 
 Run `cake start` to work on the project locally on your computer.

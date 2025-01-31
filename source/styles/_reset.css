@@ -35,7 +35,7 @@ div{
   --background: #F1F0EB;
   --background-dark: #e6e5e0;
   --max-column-width: 40em;
-  --margin: 1 em;
+  --margin: 1em;
 }
 
 h1{
@@ -58,6 +58,16 @@ h3, a{
   font-family: "baloo", Arial, Helvetica, sans-serif;
   color: var(--dark-blue);
   background-color: none;
+}
+
+
+h4{
+  font-size: 1em;
+  font-weight: 700;
+  font-family: "open-sans", Arial, Helvetica, sans-serif;
+  color: var(--maroon);
+  background-color: none;
+  padding:0.2em 1em;
 }
 
 p{
@@ -98,4 +108,8 @@ a.basic-button{
 
   .title{
     font-size:2.5em;
+  }
+
+  .center{
+    text-align: center;
   }

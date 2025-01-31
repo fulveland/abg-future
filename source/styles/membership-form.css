@@ -2,7 +2,7 @@
 
 a.membership-but {
   display: inline-block;
-  background-color: #232226;
+  background-color: var(--red);
   border-radius: 0.5em;
   text-align: center;
   padding: 0.5em 2em;
@@ -12,15 +12,20 @@ a.membership-but {
   text-decoration: none;
 }
 
+a.membership-but.half {
+  background-color: var(--dark-blue);
+}
+
+a.membership-but.gold {
+  background-color: var(--yellow);
+}
+
 #membership-card{
   display: grid;
   grid-template-columns: repeat(12,1fr);
   grid-template-areas:
-             ". . p p p p i i i i . .";
+             "p p p p p i i i i i i i";
   place-items: center;
-
-  --peek: 0em; /* Make this bigger to have something peek in at the bottom */
-  min-height: calc(100vh - var(--peek));
           
 }
 

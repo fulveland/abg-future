@@ -1,4 +1,8 @@
-
+#membership{
+}
+#membership-extra{
+  background-color: var(--background-dark);
+}
 
 a.membership-but {
   display: inline-block;
@@ -25,9 +29,8 @@ a.membership-but.gold {
   display: grid;
   grid-template-columns: repeat(12,1fr);
   grid-template-areas:
-             "p p p p p i i i i i i i";
+             ". p p p p i i i i i i .";
   place-items: center;
-          
 }
 
 .membership-card-img-box {
@@ -51,10 +54,18 @@ a.membership-but.gold {
         grid-template-columns: repeat(12, 1fr);
         grid-template-areas:
             ". p p p p p p p p p p ."
-            " i i i i i i i i i i i i";
+            " . i i i i i i i i i i .";
         align-content: center;
         margin: 0;
         padding: 3em 0em 0em 0em;
+        }
+        .membership-card-info-box{
+        }
+        section{
+          margin: 0;
+          padding: 0em 1em;
+          width: 100%;
+        }
     }
 
 /* @media (max-width: 500px) {

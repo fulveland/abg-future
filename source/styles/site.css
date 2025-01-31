@@ -1,5 +1,118 @@
 html {
   padding: 1em;
   margin: 0 auto;
-  max-width: 48em;
+  width:100%;
+  background-color: var(--background);
+}
+
+body {
+  padding: calc(var(--margin) * 3) var(--margin);
+}
+
+ section, header{
+padding-bottom:2em;
+}
+
+#intro{
+  display: grid;
+  grid-template-columns: repeat(12,1fr);
+  grid-template-areas:
+             ". . photo photo photo photo description description description description . .";
+  align-content: center;
+          
+}
+
+
+.photo-area{
+  grid-area: photo;
+  display: flex;
+}
+
+#intro img{
+flex-basis: 75%;
+}
+
+.description {
+  grid-area: description;
+}
+
+.deck{
+  grid-area: deck;
+}
+
+
+ #events, #opportunities
+  {
+    display: grid;
+    grid-template-columns: repeat(12,1fr);
+    grid-template-areas:
+               ". . description description description description photo photo photo photo . ."
+               ". . deck deck deck deck deck deck deck deck . ."
+  }
+
+  #events p{
+    width:75%;
+  }
+
+
+
+/* #intro, #events, #opportunities div.description{
+  grid-area: description;
+  height: auto;
+} */
+
+/* #intro, #events, #opportunities img{
+grid-area: image;
+  height: auto;
+} */
+  /* display: grid; */
+  
+  /* 
+  columns: 12;
+  gutter: 20; 
+  */
+
+
+
+header{
+
+}
+#intro{
+
+}
+#events{
+
+}
+#opportunities{
+
+  }
+
+#membership-banner{
+display:grid;
+grid-template-columns: minmax(auto,var(--max-column-width));
+justify-content: center;
+background-color: var(--light-green);
+padding: 3em 0 3em 0;
+
+}
+#membership-banner h2{
+/* background-color: aqua; */
+text-align: center;
+color: var(--font-white);
+padding: 0 1em;
+}
+
+footer{
+  display:grid;
+  grid-template-columns: minmax(auto,var(--max-column-width));
+  justify-content: center;
+  padding: 3em 0 3em 0;
+
+}
+
+input[type="submit"] {
+  display: block;
+  width: max-content;
+  margin: 3em auto 0;
+  font-size: 1.1em;
 }

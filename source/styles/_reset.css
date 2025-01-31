@@ -3,7 +3,7 @@
   margin: 0;
   overflow-wrap: break-word;
   hyphens: auto;
-  background-color: var(--background);
+  
 }
 
 img {
@@ -14,45 +14,14 @@ input, button, textarea, select {
   font: inherit;
 }
 
-
-h1{
-  font-size: 2em;
-  font-family: "baloo", Arial, Helvetica, sans-serif;
-  color: var(--font-black);
+div{
+  background-color: none;
 }
-
-h2{
-  font-size: 2em;
-  font-family: "baloo", Arial, Helvetica, sans-serif;
-  color:var(--light-green);
-}
-
-h3, a{
-  font-size: 1em;
-  font-family: "baloo", Arial, Helvetica, sans-serif;
-  color: var(--dark-blue);
-}
-
-p{
-  font-size: 1em;
-  font-family: "open-sans", Arial, Helvetica, sans-serif;
-  color: var(--font-black);
-}
-
-p.info-card{
-  font-family: "open-sans-condensed", Arial, Helvetica, sans-serif;
-}
-h3.info-card, a.info-card{
-  font-family: "open-sans-condensed", Arial, Helvetica, sans-serif;
- 
-}
-
-
-
 
 :root {
   --gray:#d4d1cd;
   --gold:#b3945a;
+  --yellow:#C98D30;
   --light-green:#787130;
   --dark-green:#2b4727;
   --cream:#eae1c2;
@@ -65,4 +34,68 @@ h3.info-card, a.info-card{
   --font-black:#29261f;
   --background: #F1F0EB;
   --background-dark: #e6e5e0;
+  --max-column-width: 40em;
+  --margin: 1 em;
 }
+
+h1{
+  font-size: 2em;
+  font-family: "baloo", Arial, Helvetica, sans-serif;
+  color: var(--maroon);
+  background-color: none;
+}
+
+h2{
+  font-size: 1.2em;
+  font-family: "baloo", Arial, Helvetica, sans-serif;
+  color:var(--light-green);
+  background-color: none;
+  font-weight: 800;
+}
+
+h3, a{
+  font-size: 1em;
+  font-family: "baloo", Arial, Helvetica, sans-serif;
+  color: var(--dark-blue);
+  background-color: none;
+}
+
+p{
+  font-size: 1em;
+  font-family: "open-sans", Arial, Helvetica, sans-serif;
+  color: var(--font-black);
+  background-color: none;
+  padding:1em 1em;
+}
+
+p a{
+  font-family: "open-sans", Arial, Helvetica, sans-serif;
+  font-weight: 700;  
+}
+
+p.top{
+  padding-top: 0;
+}
+
+p.info-card{
+  font-family: "open-sans-condensed", Arial, Helvetica, sans-serif;
+  background-color: none;
+}
+h3.info-card, a.info-card{
+  font-family: "open-sans-condensed", Arial, Helvetica, sans-serif;
+  background-color: none;
+}
+
+a.basic-button{
+  background-color: var(--yellow);
+  border-radius: .5em;
+  text-align: center;
+  padding: .1em 2em;
+  margin: 0 1em;
+  color: var(--font-white);
+  font-weight: 400;
+  }
+
+  .title{
+    font-size:2.5em;
+  }

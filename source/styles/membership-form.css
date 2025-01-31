@@ -1,0 +1,53 @@
+
+
+a.membership-but {
+  display: inline-block;
+  background-color: #232226;
+  border-radius: 0.5em;
+  text-align: center;
+  padding: 0.5em 2em;
+  margin: 1em 0;
+  color: #f2f2f2;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+#membership-card{
+  display: grid;
+  grid-template-columns: repeat(12,1fr);
+  grid-template-areas:
+             ". . p p p p i i i i . .";
+  place-items: center;
+
+  --peek: 0em; /* Make this bigger to have something peek in at the bottom */
+  min-height: calc(100vh - var(--peek));
+          
+}
+
+.membership-card-img-box {
+  grid-area: p;
+}
+
+.membership-card-img-box img {
+  /* border-radius: 50%; */
+}
+
+.membership-card-info-box {
+  grid-area: i;
+  margin: 3rem 3rem 3rem 1rem;
+  align-self: center;
+}
+
+
+/* @media (max-width: 500px) {
+  #membership {
+    grid-template-columns: repeat(1fr);
+    grid-template-areas:
+    "description",
+    "extra",
+    "photo";
+    gap: 1em;
+  }
+} */
+
+

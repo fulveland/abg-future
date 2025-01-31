@@ -18,6 +18,7 @@ a.membership-but.half {
 
 a.membership-but.gold {
   background-color: var(--yellow);
+
 }
 
 #membership-card{
@@ -43,6 +44,18 @@ a.membership-but.gold {
   align-self: center;
 }
 
+
+  @media (max-width: 800px) {
+    #membership-card {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        grid-template-areas:
+            ". p p p p p p p p p p ."
+            " i i i i i i i i i i i i";
+        align-content: center;
+        margin: 0;
+        padding: 3em 0em 0em 0em;
+    }
 
 /* @media (max-width: 500px) {
   #membership {

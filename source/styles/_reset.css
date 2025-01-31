@@ -76,6 +76,7 @@ p{
   color: var(--font-black);
   background-color: none;
   padding:1em 1em;
+  word-break: keep-all;
 }
 
 p a{

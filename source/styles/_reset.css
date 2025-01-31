@@ -43,6 +43,7 @@ h1{
   font-family: "baloo", Arial, Helvetica, sans-serif;
   color: var(--maroon);
   background-color: none;
+  word-break: keep-all;
 }
 
 h2{

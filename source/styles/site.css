@@ -13,6 +13,15 @@ body {
 padding-bottom:2em;
 }
 
+
+/* take this out */
+.logo{
+text-align: center;
+}
+
+
+
+
 #intro{
   display: grid;
   grid-template-columns: repeat(12,1fr);

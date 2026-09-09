@@ -25,6 +25,47 @@ readJSON = (p)->
 
 buildDate = -> new Date().toISOString().slice(0, 10)
 
+# PAGE META ######################################################################
+# Every page carries a leading <!--META ... --> block of `key: value` lines.
+# The build strips it off and fills the placeholders in _template.html, so each
+# page gets its own <title>, description, canonical URL and Open Graph tags.
+# Without these a shared link renders as a bare grey box on Facebook, which is
+# where most of our traffic comes from.
+
+SITE_URL          = "https://albertabasketryguild.com"
+DEFAULT_TITLE     = "Alberta Basketry Guild"
+DEFAULT_IMAGE     = "/assets/og-card.jpg"
+DEFAULT_IMAGE_ALT = "Alberta Basketry Guild \u2014 a community of weavers, teaching and learning across Alberta."
+
+pageMeta = (html)->
+  meta = {}
+  body = html.replace /^\s*<!--\s*META\b([\s\S]*?)-->\s*/, (m, block)->
+    for line in block.split("\n")
+      i = line.indexOf ":"
+      continue if i < 1
+      key = line.slice(0, i).trim()
+      val = line.slice(i + 1).trim()
+      meta[key] = val if key and val
+    ""
+  { meta, body }
+
+# "public/events/index.html" -> "https://albertabasketryguild.com/events/"
+canonicalFor = (dest)->
+  p = dest.replace(/^public/, "").replace(/index\.html$/, "")
+  p = "/" if p is ""
+  SITE_URL + p
+
+applyMeta = (html, meta, dest)->
+  title = meta.title or DEFAULT_TITLE
+  img   = meta.image or DEFAULT_IMAGE
+  img   = SITE_URL + img if img.charAt(0) is "/"
+  html = html.replace /\{\{TITLE\}\}/g,       -> esc title
+  html = html.replace /\{\{DESCRIPTION\}\}/g, -> esc(meta.description or "")
+  html = html.replace /\{\{CANONICAL\}\}/g,   -> esc canonicalFor dest
+  html = html.replace /\{\{IMAGE\}\}/g,       -> esc img
+  html = html.replace /\{\{IMAGE_ALT\}\}/g,   -> esc(meta.imageAlt or DEFAULT_IMAGE_ALT)
+  html
+
 willowPlaceholder = '<div class="card-media" role="img" aria-label="Photo coming soon"><svg class="willow" aria-hidden="true"><use href="#willow"></use></svg></div>'
 
 mediaHTML = (ev)->
@@ -346,7 +387,9 @@ task "build", "Compile everything", ()->
   compile "pages", "source/pages/**/[!_]*.html", (path)->
     dest = replace path, "source/pages/": "public/"
     dest = replace dest, ".html": "/index.html" unless dest.endsWith "index.html"
-    html = replace template, "PAGE CONTENT GOES HERE": read(path)
+    parsed = pageMeta read(path)
+    html = replace template, "PAGE CONTENT GOES HERE": parsed.body
+    html = applyMeta html, parsed.meta, dest
     write dest, renderEvents html
 
   compile "scripts", ()->

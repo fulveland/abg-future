@@ -1,31 +1,90 @@
-/* The Membership heading sits outside #membership-card, so left-aligning it
-   alone would put it hard against the viewport edge while the card below
-   starts at grid column 2. Same 12-column track here, heading placed in the
-   same column as the photo, so their left edges line up exactly. */
-#membership{
+/* ---- Membership -------------------------------------------
+   Rebuilt 2026-09-09 on the site's standard panel/split system. It used to be
+   a bespoke 12-column grid (#membership + #membership-card) with its own
+   heading treatment, which is why "Membership" sat somewhere different from
+   "Opportunities" and every other section title. Nothing here overrides the
+   layout any more; it only styles the pay row and the benefits list. */
+
+/* Pay-what-you-can row. Four amounts of equal weight except the suggested one,
+   rather than the old blue/blue/red/gold set, where the colours implied a
+   ranking the copy does not make. */
+.pay-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1.4rem 0 0;
+}
+
+.pay {
+  display: inline-grid;
+  place-items: center;
+  min-width: 5rem;
+  padding: 0.5em 1.5em;
+  border-radius: var(--radius);
+  border: 2px solid var(--gold);
+  background: transparent;
+  color: var(--maroon);
+  font-family: "baloo", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.03em;
+  transition: background-color .12s ease, border-color .12s ease, color .12s ease;
+}
+.pay:hover,
+.pay:focus-visible { background: var(--cream); }
+
+.pay--suggested {
+  background: var(--yellow);
+  border-color: var(--yellow);
+  color: #fff;
+}
+.pay--suggested:hover,
+.pay--suggested:focus-visible {
+  background: var(--maroon);
+  border-color: var(--maroon);
+  color: #fff;
+}
+
+.pay-note {
+  font-size: 0.95rem;
+  padding: 0;
+  margin: 0.6rem 0 0;
+  opacity: 0.75;
+}
+
+/* ---- Benefits list ---------------------------------------- */
+/* Two columns on wide screens so six items do not read as a long scroll,
+   one column below the site's split breakpoint. */
+.benefit-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(min(22rem, 100%), 1fr));
+  gap: clamp(0.75rem, 2vw, 1.25rem) clamp(1.5rem, 4vw, 3rem);
+}
+.benefit-list li {
+  position: relative;
+  padding-left: 1.6rem;
+  font-family: "open-sans", Arial, Helvetica, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  color: var(--font-black);
+  max-width: 46ch;
+}
+/* Willow-leaf tick rather than a bullet dot, to match the mark. */
+.benefit-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50% 0 50% 0;
+  background: var(--light-green);
 }
 
-#membership > h2.title {
-  grid-column: 2 / -2;
-  text-align: left;
-}
-
-#membership > #membership-card {
-  grid-column: 1 / -1;
-}
-
-/* Below 800px the card's photo starts at column 3, so the heading follows. */
-@media (max-width: 800px) {
-  #membership > h2.title { grid-column: 3 / -3; }
-}
-
-/* Membership fine print: uses the site's standard panel band
-   (.panel > .panel-inner), so it aligns with every other section instead
-   of floating as a bare grey box. Left untinted on purpose -- the site
-   footer already uses --background-dark, so a tinted band here would
-   merge into the footer with no visible boundary. */
+/* ---- Managing your membership ------------------------------ */
 #membership-extra .panel-inner {
   gap: clamp(0.75rem, 2vw, 1.25rem);
 }
@@ -37,81 +96,3 @@
 .membership-extra-text p.top {
   padding-top: 0;
 }
-
-a.membership-but {
-  display: inline-block;
-  background-color: var(--red);
-  border-radius: 0.5em;
-  text-align: center;
-  padding: 0.5em 2em;
-  margin: 1em 0;
-  color: #f2f2f2;
-  font-weight: 400;
-  text-decoration: none;
-}
-
-a.membership-but.half {
-  background-color: var(--dark-blue);
-}
-
-a.membership-but.gold {
-  background-color: var(--yellow);
-
-}
-
-#membership-card{
-  display: grid;
-  grid-template-columns: repeat(12,1fr);
-  grid-template-areas:
-             ". p p p p i i i i i i .";
-  place-items: center;
-}
-
-.membership-card-img-box {
-  grid-area: p;
-}
-
-.membership-card-img-box img {
-  /* border-radius: 50%; */
-}
-
-.membership-card-info-box {
-  grid-area: i;
-  margin: 3rem 3rem 3rem 1rem;
-  align-self: center;
-}
-
-
-  @media (max-width: 800px) {
-    #membership-card {
-        display: grid;
-        grid-template-columns: repeat(12, 1fr);
-        grid-template-areas:
-            ". . p p p p p p p p . ."
-            " i i i i i i i i i i i i";
-        align-content: center;
-        margin: 0;
-        padding: 3em 0em 0em 0em;
-        }
-        .membership-card-info-box{
-          margin: 0;
-          padding: 1.5em 0;
-        }
-        #membership{
-          margin: 0;
-          padding:0;
-        }
-    }
-
-/* @media (max-width: 500px) {
-  #membership {
-    grid-template-columns: repeat(1fr);
-    grid-template-areas:
-    "description",
-    "extra",
-    "photo";
-    gap: 1em;
-  }
-} */
-
-

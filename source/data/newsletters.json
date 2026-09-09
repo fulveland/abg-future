@@ -1,6 +1,14 @@
 {
   "newsletters": [
     {
+      "title": "🧺 September — Alberta Basketry News",
+      "date": {
+        "display": "September 9, 2026",
+        "published": "2026-09-09"
+      },
+      "url": "https://buttondown.com/albertabasketry/archive/u1f9fa-september-alberta-basketry-news/"
+    },
+    {
       "title": "🧺 February — Alberta Basketry News",
       "date": {
         "display": "February 4, 2026",

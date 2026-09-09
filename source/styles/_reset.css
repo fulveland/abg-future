@@ -33,7 +33,11 @@ a {
   /* Palette */
   --gray:#d4d1cd;
   --gold:#b3945a;
-  --yellow:#C98D30;
+  /* Darkened from #C98D30 on 2026-09-09. Every use of this token is white
+     text on the gold — card CTAs, deck arrows, the newsletter submit, the
+     .card--cta tiles, the $75 membership button — and at #C98D30 that was
+     2.86:1 against white, well under the 4.5:1 AA needs. #9c6d25 is 4.54:1. */
+  --yellow:#9c6d25;
   --light-green:#787130;
   --dark-green:#2b4727;
   --cream:#eae1c2;

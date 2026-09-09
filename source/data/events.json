@@ -13,7 +13,7 @@
       "imageAlt": "A round willow tray woven in a scalloped flower pattern, seen from above against a pale wall.",
       "category": "Community Events",
       "soldOut": true,
-      "registration": { "type": "waitlist", "url": "https://www.fernsschoolofcraft.com/products" }
+      "registration": { "type": "link", "url": "https://www.fernsschoolofcraft.com/products/january-22-willow-tray-7f7ah-cjyhw-t46bm" }
     },
     {
       "id": "edmonton-berry-basket-2026-12-12",
@@ -28,7 +28,7 @@
       "imageAlt": "A round willow berry basket with an arched handle, standing on a wooden table.",
       "category": "Community Events",
       "soldOut": true,
-      "registration": { "type": "waitlist", "url": "https://www.fernsschoolofcraft.com/products" }
+      "registration": { "type": "link", "url": "https://www.fernsschoolofcraft.com/products/willow-berry-basket-weaving-jgbzr" }
     },
     {
       "id": "edmonton-tiny-trug-2026-12-13",
@@ -202,7 +202,7 @@
       "date": { "display": "October 16–18, 2026", "start": "2026-10-16", "end": "2026-10-18" },
       "area": "Bragg Creek",
       "location": "Folk Tree Lodge",
-      "teacher": null,
+      "teacher": "Freyja Ulveland and Roni Zaide",
       "host": null,
       "image": "bragg-creek-weave-nourish-weekend-2026-10-16.jpg",
       "imageAlt": "A large twisted willow basket taking shape on a weathered table, a weaver drawing the upright rods together.",
@@ -217,7 +217,7 @@
       "date": { "display": "October 17, 2026", "start": "2026-10-17", "end": null },
       "area": "Bragg Creek",
       "location": "Folk Tree Lodge",
-      "teacher": null,
+      "teacher": "Freyja Ulveland and Roni Zaide",
       "host": null,
       "image": "bragg-creek-weave-nourish-day-2026-10-17.jpg",
       "imageAlt": "Hands cradling a woven willow berry basket holding dark berries, green leaves behind.",

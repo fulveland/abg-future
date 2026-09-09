@@ -3,6 +3,7 @@
     {
       "id": "edmonton-willow-tray-2026-12-11",
       "workshopName": "Willow Tray",
+      "type": "Workshop",
       "date": { "display": "December 11, 2026", "start": "2026-12-11", "end": null },
       "area": "Edmonton",
       "location": "Fern's School of Craft, 10350 122 Street",
@@ -17,6 +18,7 @@
     {
       "id": "edmonton-berry-basket-2026-12-12",
       "workshopName": "Berry Basket",
+      "type": "Workshop",
       "date": { "display": "December 12, 2026", "start": "2026-12-12", "end": null },
       "area": "Edmonton",
       "location": "Fern's School of Craft, 10350 122 Street",
@@ -31,6 +33,7 @@
     {
       "id": "edmonton-tiny-trug-2026-12-13",
       "workshopName": "Tiny Trug",
+      "type": "Workshop",
       "date": { "display": "December 13, 2026", "start": "2026-12-13", "end": null },
       "area": "Edmonton",
       "location": "A private home in the Highlands",
@@ -45,6 +48,7 @@
     {
       "id": "edmonton-berry-basket-2027-01-23",
       "workshopName": "Berry Basket",
+      "type": "Workshop",
       "date": { "display": "January 23, 2027", "start": "2027-01-23", "end": null },
       "area": "Edmonton",
       "location": "A private home in the Highlands",
@@ -59,6 +63,7 @@
     {
       "id": "edmonton-weaving-moons-stars-2027-03-13",
       "workshopName": "Weaving Moons & Stars",
+      "type": "Workshop",
       "date": { "display": "March 13, 2027", "start": "2027-03-13", "end": null },
       "area": "Edmonton",
       "location": "A private home in the Highlands",
@@ -73,6 +78,7 @@
     {
       "id": "edmonton-birds-nest-wall-basket-2026-09-19",
       "workshopName": "Birds Nest Wall Basket",
+      "type": "Workshop",
       "date": { "display": "September 19, 2026", "start": "2026-09-19", "end": null },
       "area": "Edmonton",
       "location": "A private home in the Highlands",
@@ -87,6 +93,7 @@
     {
       "id": "edmonton-witches-broom-2026-10-09",
       "workshopName": "Witches Broom",
+      "type": "Workshop",
       "date": { "display": "October 9, 2026", "start": "2026-10-09", "end": null },
       "area": "Edmonton",
       "location": "A private home in the Highlands",
@@ -101,6 +108,7 @@
     {
       "id": "edmonton-witches-cauldron-2026-10-11",
       "workshopName": "Witches Cauldron",
+      "type": "Workshop",
       "date": { "display": "October 11, 2026", "start": "2026-10-11", "end": null },
       "area": "Edmonton",
       "location": "A private home in the Highlands",
@@ -115,6 +123,7 @@
     {
       "id": "edmonton-mini-bark-dandelion-basket-2026-10-24",
       "workshopName": "Mini Bark Dandelion Basket",
+      "type": "Workshop",
       "date": { "display": "October 24, 2026", "start": "2026-10-24", "end": null },
       "area": "Edmonton",
       "location": "A private home in the Highlands",
@@ -129,6 +138,7 @@
     {
       "id": "edmonton-trees-whirly-gigs-stars-2026-12-05",
       "workshopName": "Trees, Whirly Gigs & Stars",
+      "type": "Workshop",
       "date": { "display": "December 5, 2026", "start": "2026-12-05", "end": null },
       "area": "Edmonton",
       "location": "A private home in the Highlands",
@@ -143,6 +153,7 @@
     {
       "id": "edmonton-willow-skib-2027-02-21",
       "workshopName": "Willow Skib",
+      "type": "Workshop",
       "date": { "display": "February 21, 2027", "start": "2027-02-21", "end": null },
       "area": "Edmonton",
       "location": "A private home in the Highlands",
@@ -157,6 +168,7 @@
     {
       "id": "edmonton-gathering-basket-2027-03-21",
       "workshopName": "Gathering Basket",
+      "type": "Workshop",
       "date": { "display": "March 21, 2027", "start": "2027-03-21", "end": null },
       "area": "Edmonton",
       "location": "A private home in the Highlands",
@@ -171,6 +183,7 @@
     {
       "id": "tofield-baskets-in-the-garden-2026-09-11",
       "workshopName": "Baskets in the Garden",
+      "type": "Retreat",
       "date": { "display": "September 11–13, 2026", "start": "2026-09-11", "end": "2026-09-13" },
       "area": "Tofield",
       "location": "Studio TK, 20129 Township Rd 504, Tofield, AB T0B 4J2",
@@ -185,6 +198,7 @@
     {
       "id": "bragg-creek-weave-nourish-weekend-2026-10-16",
       "workshopName": "Weave & Nourish Weekend Retreat — Large Twisted Willow Basket",
+      "type": "Retreat",
       "date": { "display": "October 16–18, 2026", "start": "2026-10-16", "end": "2026-10-18" },
       "area": "Bragg Creek",
       "location": "Folk Tree Lodge",
@@ -199,6 +213,7 @@
     {
       "id": "bragg-creek-weave-nourish-day-2026-10-17",
       "workshopName": "Weave & Nourish Day Retreat — Beginner Basket Weaving",
+      "type": "Retreat",
       "date": { "display": "October 17, 2026", "start": "2026-10-17", "end": null },
       "area": "Bragg Creek",
       "location": "Folk Tree Lodge",
@@ -213,6 +228,7 @@
     {
       "id": "millarville-basketry-monthly",
       "workshopName": "Basketry",
+      "type": "Other",
       "date": { "display": "Third Tuesday of each month", "start": null, "end": null, "recurring": true },
       "area": "Millarville",
       "location": "Sheep Creek Weavers",
@@ -226,6 +242,7 @@
     {
       "id": "red-deer-weekend-of-weaving-2026-09-25",
       "workshopName": "September Weekend of Weaving",
+      "type": "Retreat",
       "date": { "display": "September 25–27, 2026", "start": "2026-09-25", "end": "2026-09-27" },
       "area": "Red Deer",
       "location": "Pioneer Lodge, 4324-46A Avenue, Red Deer, AB",
@@ -240,13 +257,14 @@
     {
       "id": "red-deer-weekend-of-weaving-2026-11-13",
       "workshopName": "November Weekend of Weaving",
+      "type": "Retreat",
       "date": { "display": "November 13–15, 2026", "start": "2026-11-13", "end": "2026-11-15" },
       "area": "Red Deer",
       "location": "Pioneer Lodge, 4324-46A Avenue, Red Deer, AB",
       "teacher": "Freyja Ulveland",
       "host": "Half Moon Baskets",
       "image": "red-deer-weekend-of-weaving-2026-11-13.jpg",
-      "imageAlt": "A child carrying a woven basket loaded with pale kindling and willow rods.",
+      "imageAlt": "A shallow round basket woven from flat pale rush, with a coiled rim and an open lattice base, resting on weathered wood beside sprigs of white and pink yarrow.",
       "category": "Community Events",
       "soldOut": false,
       "registration": { "type": "link", "url": "https://www.halfmoonbaskets.com/weekend-of-weaving-november-2026" }
@@ -254,6 +272,7 @@
     {
       "id": "calgary-weave-your-own-stool-2026-09-19",
       "workshopName": "Weave Your Own Stool",
+      "type": "Workshop",
       "date": { "display": "September 19, 2026", "start": "2026-09-19", "end": null },
       "area": "Calgary",
       "location": "Alberta Craft Gallery & Shop, 280, 1721 29 Avenue SW, Calgary",
@@ -267,6 +286,7 @@
     {
       "id": "beaverlodge-baskets-from-the-north-v2-2026-08-30",
       "workshopName": "Baskets From the North V2: Functional vs Sculptural",
+      "type": "Exhibit",
       "date": { "display": "August 30 – September 12, 2026", "start": "2026-08-30", "end": "2026-09-12" },
       "area": "Beaverlodge",
       "location": "Beaverlodge Arts and Cultural Centre, Beaverlodge, Alberta",

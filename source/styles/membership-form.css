@@ -1,4 +1,24 @@
+/* The Membership heading sits outside #membership-card, so left-aligning it
+   alone would put it hard against the viewport edge while the card below
+   starts at grid column 2. Same 12-column track here, heading placed in the
+   same column as the photo, so their left edges line up exactly. */
 #membership{
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+}
+
+#membership > h2.title {
+  grid-column: 2 / -2;
+  text-align: left;
+}
+
+#membership > #membership-card {
+  grid-column: 1 / -1;
+}
+
+/* Below 800px the card's photo starts at column 3, so the heading follows. */
+@media (max-width: 800px) {
+  #membership > h2.title { grid-column: 3 / -3; }
 }
 
 /* Membership fine print: uses the site's standard panel band

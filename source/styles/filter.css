@@ -1,0 +1,62 @@
+/* The browser's own [hidden] rule is display:none, but .card sets
+   display:flex and an author rule beats the user-agent sheet — so
+   `el.hidden = true` on a card did nothing at all. This makes hiding work. */
+[hidden] { display: none !important; }
+
+/* ---- Event type filter ------------------------------------- */
+/* The three words in the events intro. They were <a> tags with no href;
+   they are buttons now, so they need the link look put back by hand. */
+.type-filter {
+  font: inherit;
+  font-weight: 700;
+  color: var(--dark-blue);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: border-color .12s ease, color .12s ease;
+}
+.type-filter:hover,
+.type-filter:focus-visible { border-bottom-color: var(--dark-blue); }
+.type-filter[aria-pressed="true"] {
+  color: var(--maroon);
+  border-bottom-color: var(--maroon);
+}
+
+.filter-status {
+  font-family: "open-sans", Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  color: var(--font-black);
+  padding: 0;
+  margin: 0 0 1rem;
+}
+.filter-clear {
+  font: inherit;
+  font-weight: 700;
+  color: var(--dark-blue);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.filter-clear:hover { color: var(--maroon); }
+
+/* A type with no events listed. It keeps the blue so the three read as one
+   set, but does not underline on hover and does not take a click. It comes
+   back to life on its own once an event of that kind is added. */
+.type-filter[data-empty] {
+  color: var(--dark-blue);
+  font-weight: 700;
+  cursor: default;
+  border-bottom-color: transparent;
+}
+.type-filter[data-empty]:hover,
+.type-filter[data-empty]:focus-visible { border-bottom-color: transparent; }
+
+/* On the home page the three are ordinary links to the filtered events page —
+   the carousel only holds six cards, so filtering it there would show a
+   fraction of the matches and call it the answer. Same look either way. */
+a.type-filter { display: inline; }
+a.type-filter:hover { border-bottom-color: var(--dark-blue); }

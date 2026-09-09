@@ -50,8 +50,10 @@ pageMeta = (html)->
   { meta, body }
 
 # "public/events/index.html" -> "https://albertabasketryguild.com/events/"
+# The slash matters: stripping a bare "index.html$" turns "future-index.html"
+# into "/future-", so only strip it when it is its own path segment.
 canonicalFor = (dest)->
-  p = dest.replace(/^public/, "").replace(/index\.html$/, "")
+  p = dest.replace(/^public/, "").replace(/\/index\.html$/, "/")
   p = "/" if p is ""
   SITE_URL + p
 
@@ -104,8 +106,11 @@ eventWhoHTML = (ev)->
 eventCard = (ev)->
   teacher = eventWhoHTML ev
   badge = if ev.soldOut then '<span class="badge">Sold out</span>' else ""
+  # data-type drives the Open weaves / Workshops / Retreats filter buttons.
+  # Cards with no type (and the CTA cards) are left alone by the filter.
+  typeAttr = if ev.type then ' data-type="' + esc(ev.type.toLowerCase()) + '"' else ""
   [
-    '<article class="card">'
+    '<article class="card"' + typeAttr + '>'
     mediaHTML ev
     '<div class="card-body">'
     badge

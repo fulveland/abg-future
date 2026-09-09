@@ -1,0 +1,140 @@
+/* ============================================================
+   RESOURCE PAGES
+   Long-form articles, photo essays and directories. Shared
+   reading measure, shared vertical rhythm.
+
+   _reset gives every <p> `padding: 1em 1em` and every <h4>
+   `padding: 0.2em 1em`. That horizontal padding pushes body text
+   18px to the right of its own headings, so it is cleared inside
+   these blocks and the spacing is rebuilt with margins instead.
+   ============================================================ */
+
+/* ---- Article header (credit line, standfirst) -------------- */
+.resource-credit {
+  padding: 0;
+  margin: 0;
+  font-size: 1rem;
+}
+.resource-published {
+  display: block;
+  font-family: "open-sans-condensed", Arial, Helvetica, sans-serif;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+.resource-header {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 66ch;
+}
+.resource-header .description,
+.panel-inner > .description {
+  padding: 0;
+  margin: 0;
+  font-size: 1.2rem;
+  line-height: 1.5;
+  max-width: 66ch;
+}
+
+/* ---- Long-form body ---------------------------------------- */
+/* The content column is 64rem — right for cards, far too wide for running
+   text, which was setting at roughly 105 characters a line. 65–75 is the
+   comfortable range. */
+.prose {
+  max-width: 68ch;
+}
+.prose p {
+  padding: 0;
+  margin: 0 0 1.15em;
+}
+.prose p:last-child { margin-bottom: 0; }
+
+/* Section headings were inheriting the base h3: dark blue (the link colour)
+   at body size, so they read as links rather than headings, and the panel
+   gap left them floating between paragraphs instead of attached to the text
+   they introduce. */
+.prose h3 {
+  font-family: "baloo", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.2rem, 2.4vw, 1.5rem);
+  line-height: 1.2;
+  color: var(--light-green);
+  padding: 0;
+  margin: 1.9em 0 0.5em;
+}
+.prose h3:first-child { margin-top: 0; }
+
+/* ---- Photo-essay captions ---------------------------------- */
+.flex-row .text-content p { padding: 0; }
+
+/* ---- Directory entries ------------------------------------- */
+/* Hold the group to the same measure as its entries, so the rule under the
+   heading ends where the content ends instead of running the full column. */
+.supplier-group { max-width: 66ch; }
+.supplier h4 { padding: 0; }
+.supplier-group > .section-lead { max-width: none; }
+
+/* ---- Back link --------------------------------------------- */
+.resource-back {
+  padding: 0;
+  margin-top: 0.5rem;
+  font-family: "open-sans-condensed", Arial, Helvetica, sans-serif;
+}
+
+/* ---- Shared: leads on resource pages ----------------------- */
+/* components.css caps .section-lead at 52ch; on these pages it sits above
+   66ch bodies and the mismatch shows. */
+.panel-inner > .section-lead { max-width: 66ch; }
+
+
+/* ============================================================
+   NEWS
+   ============================================================ */
+
+/* A portrait photo alongside text. .split is a 50/50 grid, which leaves a
+   gulf between a text column that stops at its measure and a tall image
+   filling the other half. Give the image only the width it needs and let the
+   text have the rest. */
+.split--aside {
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: stretch;
+}
+/* Beside a tall block (a list of contact routes), a photo held to its own
+   height floats small in the middle of the column. Let it run the full height
+   of the row instead, so the two sides read as a pair. object-position keeps
+   the weaver in frame when the portrait is cropped to a narrower column. */
+.split--aside .split-media { display: grid; }
+.split--aside .split-media img {
+  width: 18rem;
+  max-width: 100%;
+  height: 100%;
+  max-height: none;
+  object-fit: cover;
+  object-position: 58% center;
+  display: block;
+  border-radius: var(--radius);
+}
+.split--aside .split-text {
+  display: grid;
+  gap: 0.9rem;
+  align-content: center;
+}
+.split--aside .split-text > p { padding: 0; margin: 0; max-width: 46ch; }
+
+@media (max-width: 48em) {
+  .split--aside { grid-template-columns: minmax(0, 1fr); }
+  .split--aside .split-media img { max-height: 20rem; margin-inline: auto; }
+}
+
+/* The archive is long; give the rows a little more air than the default and
+   keep the titles from running the full column width. */
+.archive li { padding: 0.7em 0; }
+.archive a { max-width: 52ch; }
+
+
+/* Inside the split the text column is narrower, so the contact label column
+   shrinks to keep the long addresses on one line. */
+.split--aside .contact-item {
+  grid-template-columns: minmax(0, 10rem) minmax(0, 1fr);
+  gap: 0.2rem 1.5rem;
+}

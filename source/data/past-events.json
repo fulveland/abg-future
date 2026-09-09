@@ -1,0 +1,71 @@
+{
+  "pastEvents": [
+    {
+      "id": "edmonton-cattail-berry-basket-2026-09-05",
+      "workshopName": "Cattail Berry Basket",
+      "date": { "display": "September 5, 2026", "start": "2026-09-05", "end": null },
+      "area": "Edmonton",
+      "location": "Downtown Farmers Market",
+      "teacher": null,
+      "host": "Alberta Craft Council",
+      "image": "edmonton-cattail-berry-basket-2026-09-05.jpg",
+      "imageAlt": "A hand holding a small woven cattail berry basket up against soft green woodland light.",
+      "category": "Community Events",
+      "soldOut": false,
+      "registration": { "type": "link", "url": "https://www.albertacraft.ab.ca/events/cattail-basket" },
+      "contact": { "type": "link", "name": "Alberta Craft Council", "url": "https://www.eventbrite.ca/o/alberta-craft-council-15194829435", "label": "See their events" },
+      "highlight": false,
+      "photoAlbums": []
+    },
+    {
+      "id": "new-sarepta-large-willow-sculpture-2026-09-05",
+      "workshopName": "Large Willow Sculpture",
+      "date": { "display": "September 5, 2026", "start": "2026-09-05", "end": null },
+      "area": "New Sarepta",
+      "location": "Good Note Harvest Festival, Good Note Community Farm",
+      "teacher": null,
+      "host": "Alberta Basketry Guild",
+      "image": "new-sarepta-large-willow-sculpture-2026-09-05.jpg",
+      "imageAlt": "Two weavers lifting the head onto a large willow goat sculpture on the grass at the harvest festival, picnic tables and visitors behind them.",
+      "category": "Festivals",
+      "soldOut": false,
+      "registration": { "type": "none" },
+      "contact": { "type": "email", "name": "Alberta Basketry Guild", "email": "mail@albertabasketryguild.com", "label": "Email the guild" },
+      "highlight": false,
+      "photoAlbums": []
+    },
+    {
+      "id": "beaverlodge-crazy-quilt-wall-hanging-2026-08-30",
+      "workshopName": "Crazy Quilt Wall Hanging",
+      "date": { "display": "August 30, 2026", "start": "2026-08-30", "end": null },
+      "area": "Beaverlodge",
+      "location": "Beaverlodge Arts and Cultural Centre, Beaverlodge, Alberta",
+      "teacher": null,
+      "host": null,
+      "image": null,
+      "category": "Community Events",
+      "soldOut": false,
+      "registration": { "type": "email", "email": "nwtbaskets2gmail.com", "host": "Cathie Harper" },
+      "contact": { "type": "email", "name": "Cathie Harper", "email": "nwtbaskets@gmail.com", "label": "Email Cathie" },
+      "highlight": false,
+      "photoAlbums": []
+    },
+    {
+      "id": "devon-mushroom-drying-tray-2026-08-16",
+      "workshopName": "Willow Weaving Workshop (Mushroom Drying Tray)",
+      "date": { "display": "August 16, 2026", "start": "2026-08-16", "end": null },
+      "area": "Devon",
+      "location": "Devon Community Centre, 20 Haven Avenue, Devon, AB T9G 2B9",
+      "teacher": "Candice Cullum",
+      "host": null,
+      "image": "devon-mushroom-drying-tray-2026-08-16.jpg",
+      "imageAlt": "Morel mushrooms spread out to dry on a round woven willow tray.",
+      "category": "Festivals",
+      "soldOut": false,
+      "registration": { "type": "link", "url": "https://www.albertamushrooms.ca/event/basket-weaving-workshop/" },
+      "contact": { "type": "email", "name": "Candice Cullum", "email": "aubreywink@yahoo.com", "label": "Email Candice" },
+      "highlight": false,
+      "photoAlbums": []
+    }
+  ]
+}

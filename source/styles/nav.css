@@ -1,12 +1,93 @@
-nav {
-  text-align: center;
-  margin-bottom: 1em;
+/* ============================================================
+   SITE HEADER + NAVIGATION
+   Logo left, two link-groups right. Wraps to a centered
+   stack on narrow screens (matches the mobile mock).
+   ============================================================ */
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;          /* bottom of logo lines up with bottom of nav */
+  justify-content: space-between;
+  gap: 1rem var(--gutter);
+  max-width: var(--content-width);
+  margin-inline: auto;
+  padding: var(--gutter);
 }
 
-nav > * {
-  margin: 0 .5em;
+.site-header .logo {
+  margin: 0;
+  padding: 0;
+  /* Track the hero photo column width (~48.6% of the content row),
+     kept just under so the logo never gets bigger than the photo. */
+  width: 48.5%;
+}
+.site-header .logo img {
+  height: auto;
+  width: 100%;
+  display: block;
 }
 
-nav .home {
-  font-weight: bold;
+/* Nav = a flex row of two stacked link groups */
+.site-nav {
+  display: flex;
+  gap: clamp(1.5rem, 5vw, 3.5rem);
+}
+
+.site-nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35em;
+  margin: 0;
+  text-align: right;
+}
+
+.site-nav a {
+  display: block;
+  text-align: right;
+  font-family: "baloo", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 1.35rem;
+  color: var(--dark-blue);
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible {
+  color: var(--maroon);
+  text-decoration: underline;
+}
+
+.site-nav a[aria-current="page"] {
+  color: var(--maroon);
+}
+
+/* Narrow: logo centered above the two nav groups.
+   Kept lower than the content breakpoint so the nav stays beside
+   the logo as long as it comfortably fits. */
+@media (max-width: 44em) {
+  .site-header {
+    justify-content: center;
+    text-align: center;
+    gap: 1.1rem;
+  }
+  .site-header .logo {
+    flex-basis: 100%;
+    width: auto;
+    display: flex;
+    justify-content: center;
+  }
+  .site-header .logo img {
+    width: auto;
+    height: clamp(3rem, 11vw, 4rem);
+  }
+
+  /* Links flow as one centered, wrapping row under the logo */
+  .site-nav {
+    flex-basis: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: clamp(1rem, 5vw, 2rem);
+    row-gap: 0.5rem;
+  }
+  .site-nav ul { display: contents; }   /* merge both groups into one flow */
+  .site-nav a { text-align: center; }
 }

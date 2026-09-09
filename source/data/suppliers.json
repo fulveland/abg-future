@@ -1,0 +1,140 @@
+{
+  "groups": [
+    {
+      "heading": "Willow cuttings",
+      "intro": "Dormant hardwood cuttings for growing your own willow. Most growers open orders in autumn for delivery in early spring, and popular varieties sell out &mdash; check each grower for this season&rsquo;s dates.",
+      "suppliers": [
+        {
+          "id": "lake-shore-willows",
+          "name": "",
+          "business": "Lake Shore Willows",
+          "location": "Wainfleet, ON",
+          "supplies": "Basketry willow cuttings and rods. Orders usually open in mid October.",
+          "links": [
+            {
+              "label": "Website",
+              "url": "https://www.lakeshorewillows.com/site/rods-cuttings"
+            }
+          ]
+        },
+        {
+          "id": "branch-ranch",
+          "name": "",
+          "business": "The Branch Ranch",
+          "location": "Lakefield, ON",
+          "supplies": "Cuttings, whips and dried willow.",
+          "links": [
+            {
+              "label": "Website",
+              "url": "https://thebranchranch.ca/shop/cuttings-whips"
+            }
+          ]
+        },
+        {
+          "id": "willow-wood-farm",
+          "name": "Rosemary Ishkanian",
+          "business": "Willow Wood Farm",
+          "location": "Vancouver Island, BC",
+          "supplies": "Cuttings for basket willow growers, with smaller bundles for gardeners and landscapers. Sold by variety in bundles of five.",
+          "links": [
+            {
+              "label": "Website",
+              "url": "https://www.willowwoodfarm.ca/"
+            }
+          ]
+        },
+        {
+          "id": "willows-bend-collective",
+          "name": "",
+          "business": "Willow Bends Collective",
+          "location": "",
+          "supplies": "Cuttings through their online shop.",
+          "links": [
+            {
+              "label": "Website",
+              "url": "https://willowsbendcollective.ca/contact/"
+            }
+          ]
+        },
+        {
+          "id": "le-bosquet-ranch",
+          "name": "",
+          "business": "Le Bosquet Ranch",
+          "location": "",
+          "supplies": "Willow cuttings.",
+          "links": [
+            {
+              "label": "Website",
+              "url": "https://lebosquetranch.ca"
+            }
+          ]
+        },
+        {
+          "id": "lanthorn",
+          "name": "",
+          "business": "Lanthorn",
+          "location": "",
+          "supplies": "Willow cuttings. Orders usually open in December.",
+          "links": [
+            {
+              "label": "Website",
+              "url": "https://lanthorn.ca"
+            }
+          ]
+        },
+        {
+          "id": "willow-bender-baskets",
+          "name": "",
+          "business": "Willow Bender Baskets",
+          "location": "",
+          "supplies": "Willow cuttings. Orders usually open in November.",
+          "links": [
+            {
+              "label": "Website",
+              "url": "https://willowbenderbaskets.weebly.com/willows-cuttings.html"
+            }
+          ]
+        },
+        {
+          "id": "gwen-graovac",
+          "name": "Gwen Graovac",
+          "business": "",
+          "location": "",
+          "supplies": "Willow cuttings. Orders usually open in late November.",
+          "links": [
+            {
+              "label": "Website",
+              "url": "http://gwengraovac.com/willowcuttings/"
+            }
+          ]
+        },
+        {
+          "id": "glen-kraushar",
+          "name": "Glen Kraushar",
+          "business": "",
+          "location": "Denman Island, BC",
+          "supplies": "Around 40 basketry varieties &mdash; purpureas, triandras, yellows, daphnoids and biomass willows &mdash; cultivated since 1998.",
+          "links": [
+            {
+              "label": "Ask us for contact details",
+              "url": "mailto:mail@albertabasketryguild.com?subject=Glen%20Kraushar%20willow%20cuttings"
+            }
+          ]
+        },
+        {
+          "id": "frederik-buis",
+          "name": "Frederik Buis",
+          "business": "",
+          "location": "",
+          "supplies": "Curly willow varieties.",
+          "links": [
+            {
+              "label": "Ask us for contact details",
+              "url": "mailto:mail@albertabasketryguild.com?subject=Frederik%20Buis%20willow%20cuttings"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

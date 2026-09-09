@@ -1,63 +1,132 @@
-<section id="membership">
+<!-- HOME -->
 
-  <h2 class="title center">Membership</h2>
-  
-  <div id="membership-card">  
-    <div class="membership-card-img-box">
-      <img src="/assets/membership-card-img.png" alt="" />
+<!-- Hero -->
+<section class="panel hero-panel" aria-label="Welcome">
+  <div class="panel-inner">
+    <div class="hero">
+      <div class="hero-media">
+        <img src="/assets/index-1.jpg" alt="Weavers making large willow baskets together inside a greenhouse.">
+      </div>
+      <div class="hero-text">
+        <p>We are a small, passionate group of weavers looking to build resources, teach and learn, and honour the rich tradition of basketry in Alberta.</p>
+        <p>You can keep in touch by joining our <a class="outlink" href="https://www.facebook.com/groups/367471581284664">Facebook Group</a>, or signing up for our newsletter:</p>
+        <div class="newsletter-signup">
+          <form action="https://buttondown.email/api/emails/embed-subscribe/albertabasketry" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.email/albertabasketry', 'popupwindow')">
+            <label>
+              <input type="email" name="email" placeholder="you@example.com" aria-label="Email address">
+            </label>
+            <input type="submit" value="Sign Me Up">
+          </form>
+        </div>
+      </div>
     </div>
-
-    <div class="membership-card-info-box">
-      <h4>Basketry is for everyone</h4>
-      <p>Our suggested membership fee is $50. This fee allows us to sustain our community activities and benefits. If this fee is not within your means, please only pay what you can afford. Or, if you can afford a little more, then help us cover the members who can't. Every dollar makes a difference.</p>
-      <a class="membership-but half" href="https://buy.stripe.com/28o3cX9lk47icSIaG2">$1</a>
-      <a class="membership-but half" href="https://buy.stripe.com/5kA5l5dBA47i8Csg0l">$25</a>
-      <a class="membership-but" href="https://buy.stripe.com/00gdRB4107jucSIdSc">$50</a>
-      <a class="membership-but gold" href="https://buy.stripe.com/dR6fZJ554dHSaKA4hF">$75</a>
-      <p>
-        Thank you for whatever support you can give — and thank you for joining!</p>
-    </div>
-    
   </div>
-
-  </section>
-
-<section id="membership-extra">
-  <p>
-    Our membership operates as an annual subscription. Your credit card will be automatically charged upon renewal next year. You will receive a reminder email one month before your subscription is renewed. If you are charged before you have a chance to cancel, you can always request a refund by emailing albertabasketryguild@gmail.com.
-  </p>
-  
-  <p>
-      <a class="" href="https://billing.stripe.com/p/login/9AQeXo6dwawT8E08ww">Log in to Stripe</a> to confirm your membership and update your membership preferences.
-  </p>
 </section>
 
+<!-- Events -->
+<section class="panel panel--tint" aria-labelledby="events-h">
+  <div class="panel-inner">
+    <div class="section-head olive"><h2 id="events-h">Events</h2></div>
 
+    <div class="split">
+      <div class="split-text">
+        <p class="top">Alberta&rsquo;s weaving community hosts three different types of events throughout the year.</p>
+        <p><a>Open weaves</a> do not have an instructor present and are free to attend. You can bring your own materials or coordinate with the host beforehand, and they can provide you with materials for a small gathering fee.</p>
+        <p><a>Workshops</a> are led by experienced instructors, and materials are included in the price. Most workshops range between $90 (half day) to $425 (multi-day).</p>
+        <p><a>Retreats</a> span several days and are centred on either a series of workshops or one larger project. They can include catered meals and accommodations, or access to camping.</p>
+      </div>
+      <div class="split-media">
+        <img src="/assets/index-2.png" alt="Close-up of hands weaving a willow basket.">
+      </div>
+    </div>
 
-
-<!-- 
-<section id="membership-why">
-<h2>Why should I become a member?</h2>
+    <div class="deck-wrap">
+      <div class="deck" tabindex="0" aria-label="Upcoming events">
+        {{EVENTS_UPCOMING:6}}
+        <a class="card card--cta" href="/events">Find more events</a>
+        <a class="card card--cta" href="https://docs.google.com/document/d/1D1XW4qUhjML85bAQQ4liyjJ9gmLWBC50ab0JHsdkHQc/edit?usp=sharing">Request a workshop</a>
+        <a class="card card--cta" href="https://docs.google.com/document/d/1dhgJwV8t3fY0OFcPs63fXMrw8cP8lpOxO6FHU4XCdDA/edit?usp=sharing">Submit a workshop</a>
+      </div>
+      <div class="deck-controls">
+        <button class="deck-nav prev" type="button" aria-label="Previous events">&#8249;</button>
+        <button class="deck-nav next" type="button" aria-label="More events">&#8250;</button>
+      </div>
+    </div>
+  </div>
 </section>
- -->
 
-<!--
-//$1
-https://buy.stripe.com/28o3cX9lk47icSIaG2
+<!-- Opportunities -->
+<section class="panel" aria-labelledby="opps-h">
+  <div class="panel-inner">
+    <div class="section-head olive"><h2 id="opps-h">Opportunities</h2></div>
 
-//$25
+    <div class="split split--reverse">
+      <div class="split-text">
+        <p class="top">Come lend a hand, teach a workshop, help build our community! There are lots of ways to get involved with the guild throughout the year.</p>
+      </div>
+      <div class="split-media">
+        <img src="/assets/index-3.png" alt="Guild members gathered outdoors, dressed for a winter willow harvest.">
+      </div>
+    </div>
 
-https://buy.stripe.com/5kA5l5dBA47i8Csg0l
+    <div class="deck-wrap">
+            <div class="deck" tabindex="0" aria-label="Opportunities">
+        {{OPPORTUNITIES:6}}
+        <a class="card card--cta" href="https://docs.google.com/document/d/1dhgJwV8t3fY0OFcPs63fXMrw8cP8lpOxO6FHU4XCdDA/edit?usp=sharing#heading=h.y8vsevj0yjcp">Submit an opportunity</a>
+      </div>
+      <div class="deck-controls">
+        <button class="deck-nav prev" type="button" aria-label="Previous opportunities">&#8249;</button>
+        <button class="deck-nav next" type="button" aria-label="More opportunities">&#8250;</button>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- Harvesting Hints -->
+<section class="panel panel--tint" aria-labelledby="bb-h">
+  <div class="panel-inner">
+    <div class="section-head maroon"><h2 id="bb-h">Harvesting Hints</h2></div>
+    <p class="section-lead">A bit of foresight into what you can harvest now and in the months ahead.</p>
 
-//50
+    <div class="deck-wrap" style="--placeholder: var(--maroon)">
+      <div class="deck" tabindex="0" aria-label="Harvesting hints — what to harvest and when">
+        <article class="card">
+          <div class="card-media" role="img" aria-label="Photo coming soon"><svg class="willow" aria-hidden="true"><use href="#willow"></use></svg></div>
+          <div class="card-body">
+            <h3>Cat Tails</h3>
+            <p>August - September</p>
+            <p>When the tips begin to brown, before the first frost.</p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-media" role="img" aria-label="Photo coming soon"><svg class="willow" aria-hidden="true"><use href="#willow"></use></svg></div>
+          <div class="card-body">
+            <h3>Ditch Willow</h3>
+            <p>November - March</p>
+            <p>When at least 2/3 of leaves have fallen in the fall and before the buds swell in the spring.</p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-media" role="img" aria-label="Photo coming soon"><svg class="willow" aria-hidden="true"><use href="#willow"></use></svg></div>
+          <div class="card-body">
+            <h3>Dogwood</h3>
+            <p>November - March</p>
+            <p>Thin, flexible branches, thinner than a pencil, once the leaves are off.</p>
+          </div>
+        </article>
+      </div>
+      <div class="deck-controls">
+        <button class="deck-nav prev" type="button" aria-label="Previous plants">&#8249;</button>
+        <button class="deck-nav next" type="button" aria-label="More plants">&#8250;</button>
+      </div>
+    </div>
+  </div>
+</section>
 
-https://buy.stripe.com/00gdRB4107jucSIdSc
-
-
-
-// 75
-https://buy.stripe.com/dR6fZJ554dHSaKA4hF
-
-
--->
+<!-- Membership CTA -->
+<section class="cta-band" aria-label="Become a member">
+  <div class="cta-inner">
+    <h2>Interested in becoming a member?</h2>
+    <a class="basic-button" href="/membership">Join</a>
+  </div>
+</section>

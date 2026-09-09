@@ -1,7 +1,21 @@
 #membership{
 }
-#membership-extra{
-  background-color: var(--background-dark);
+
+/* Membership fine print: uses the site's standard panel band
+   (.panel > .panel-inner), so it aligns with every other section instead
+   of floating as a bare grey box. Left untinted on purpose -- the site
+   footer already uses --background-dark, so a tinted band here would
+   merge into the footer with no visible boundary. */
+#membership-extra .panel-inner {
+  gap: clamp(0.75rem, 2vw, 1.25rem);
+}
+
+.membership-extra-text {
+  max-width: 62ch;
+}
+
+.membership-extra-text p.top {
+  padding-top: 0;
 }
 
 a.membership-but {

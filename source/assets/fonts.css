@@ -1,7 +1,25 @@
 @font-face {
   font-display: block;
   font-family:"baloo";
+  font-weight:700;
+  src: url("/assets/fonts/baloo/bold.woff2") format("woff2");
+}
+@font-face {
+  font-display: block;
+  font-family:"baloo";
+  font-weight:800;
+  src: url("/assets/fonts/baloo/extrabold.woff2") format("woff2");
+}
+@font-face {
+  font-display: block;
+  font-family:"baloo";
   src: url("/assets/fonts/baloo/regular.woff2") format("woff2");
+}
+@font-face {
+  font-display: block;
+  font-family:"baloo";
+  font-weight:600;
+  src: url("/assets/fonts/baloo/semibold.woff2") format("woff2");
 }
 @font-face {
   font-display: block;

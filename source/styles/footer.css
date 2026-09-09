@@ -1,0 +1,17 @@
+/* ============================================================
+   SITE FOOTER (shared via _template.html)
+   ============================================================ */
+.site-footer {
+  padding: var(--section-gap) var(--gutter);
+  background: var(--background-dark);
+}
+.footer-inner {
+  max-width: var(--content-width);
+  margin-inline: auto;
+}
+.site-footer p {
+  padding: 0.5em 0;
+}
+.site-footer p:first-child {
+  font-weight: 700;
+}

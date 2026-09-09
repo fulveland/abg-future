@@ -1,126 +1,62 @@
+/* ============================================================
+   PAGE FRAME
+   ============================================================ */
 html {
-  padding: 1em;
-  margin: 0 auto;
-  width:100%;
   background-color: var(--background);
 }
 
 body {
-  padding: calc(var(--margin) * 3) var(--margin);
+  min-height: 100vh;
 }
 
- section, header{
-padding-bottom:2em;
-}
+/* ============================================================
+   MAIN LAYOUT GRID
+   "content column + full-bleed band"
 
-
-/* take this out */
-.logo{
-text-align: center;
-}
-
-
-
-
-#intro{
+   Every direct child of <main> sits in the centered, readable
+   "content" column by default. Add .full-bleed to let a child
+   span the whole viewport (used for coloured section bands).
+   ============================================================ */
+main {
   display: grid;
-  grid-template-columns: repeat(12,1fr);
-  grid-template-areas:
-             ". . photo photo photo photo description description description description . .";
-  align-content: center;
-          
+  grid-template-columns:
+    [full-start] minmax(var(--gutter), 1fr)
+    [content-start] minmax(0, var(--content-width)) [content-end]
+    minmax(var(--gutter), 1fr) [full-end];
+  row-gap: 0;                 /* panels manage their own vertical spacing */
+  padding-block: 0;
 }
 
-.photo-area{
-  grid-area: photo;
-  display: flex;
+/* Default: everything lives in the centered reading column */
+main > * {
+  grid-column: content;
 }
 
-#intro img{
-flex-basis: 75%;
+/* Legacy pages (not yet rebuilt into panels): keep bare sections
+   from sitting flush against the header/footer. */
+main > section:not(.panel):not(.cta-band) {
+  padding-block: var(--section-gap);
 }
 
-.description {
-  grid-area: description;
+/* Opt-in: bleed to the full viewport width (coloured bands, hero) */
+.full-bleed {
+  grid-column: full;
 }
 
-.deck{
-  grid-area: deck;
+/* A full-bleed band that keeps its own inner content centered */
+.band {
+  display: grid;
+  grid-template-columns:
+    minmax(var(--gutter), 1fr)
+    minmax(0, var(--content-width))
+    minmax(var(--gutter), 1fr);
+  padding-block: var(--section-gap);
+}
+.band > * {
+  grid-column: 2;
 }
 
-
- #events, #opportunities
-  {
-    display: grid;
-    grid-template-columns: repeat(12,1fr);
-    grid-template-areas:
-               ". . description description description description photo photo photo photo . ."
-               ". . deck deck deck deck deck deck deck deck . ."
-  }
-
-  #events p{
-    width:75%;
-  }
-
-
-
-/* #intro, #events, #opportunities div.description{
-  grid-area: description;
-  height: auto;
-} */
-
-/* #intro, #events, #opportunities img{
-grid-area: image;
-  height: auto;
-} */
-  /* display: grid; */
-  
-  /* 
-  columns: 12;
-  gutter: 20; 
-  */
-
-
-
-header{
-
-}
-#intro{
-
-}
-#events{
-
-}
-#opportunities{
-
-  }
-
-#membership-banner{
-display:grid;
-grid-template-columns: minmax(auto,var(--max-column-width));
-justify-content: center;
-background-color: var(--light-green);
-padding: 3em 0 3em 0;
-
-}
-#membership-banner h2{
-/* background-color: aqua; */
-text-align: center;
-color: var(--font-white);
-padding: 0 1em;
-}
-
-footer{
-  display:grid;
-  grid-template-columns: minmax(auto,var(--max-column-width));
-  justify-content: center;
-  padding: 3em 0 3em 0;
-
-}
-
-input[type="submit"] {
-  display: block;
-  width: max-content;
-  margin: 3em auto 0;
-  font-size: 1.1em;
+/* Section vertical rhythm inside the content column */
+section {
+  display: flow-root;
 }

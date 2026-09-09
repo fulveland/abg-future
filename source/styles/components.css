@@ -1,0 +1,632 @@
+/* ============================================================
+   COMPONENTS
+   Desktop-first. Grid = 2-D structure; Flexbox = 1-D flow.
+   Colored header bars are a MOBILE treatment (see media query).
+   ============================================================ */
+
+/* ---- Section panel: full-bleed block, centered inner ------ */
+.panel { grid-column: full; }
+.panel--tint { background: var(--background-dark); }
+
+/* Hero sits right under the header — trim its top padding */
+.hero-panel .panel-inner { padding-top: clamp(1.5rem, 3vw, 2.25rem); }
+.panel-inner {
+  max-width: var(--content-width);
+  margin-inline: auto;
+  padding: clamp(2.5rem, 6vw, 4.5rem) var(--gutter);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);   /* let children shrink so decks scroll */
+  gap: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+/* ---- Section heading: olive title + accent underline ------ */
+.section-head { line-height: 1; }
+.section-head h2 {
+  display: inline-block;
+  font-family: "baloo", Arial, Helvetica, sans-serif;
+  font-weight: 800;
+  font-size: var(--step-title);
+  color: var(--light-green);
+  line-height: 1.05;
+}
+.section-head.maroon h2 {
+  color: var(--maroon);
+}
+.section-lead {
+  max-width: 52ch;
+  padding: 0;
+  margin-top: -0.5rem;
+}
+
+/* ---- Hero (home) : photo | text ---------------------------- */
+.hero {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: var(--hero-gap);
+  align-items: center;
+}
+.hero img {
+  width: 100%;
+  object-fit: cover;
+}
+.hero-text p:first-child { padding-top: 0; }
+
+/* Newsletter signup = flex row that wraps */
+.newsletter-signup form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: center;   /* centers the button when it wraps to its own row */
+  gap: 0.5rem;
+  padding: 0 1em;
+}
+.newsletter-signup label {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 12rem;
+  gap: 0.2rem;
+}
+.newsletter-signup input[type="email"] {
+  padding: 0.55em 0.7em;
+  border: 2px solid var(--gold);
+  border-radius: var(--radius);
+  background: #FEFFFF;
+}
+.newsletter-signup input[type="submit"] {
+  background: var(--yellow);
+  color: #fff; letter-spacing: 0.03em;
+  border: 0;
+  border-radius: var(--radius);
+  padding: 0.6em 1.4em;
+  font-family: "baloo", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ---- Split section : text + photo (Grid, order-flippable) -- */
+.split {
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "text media";
+}
+.split-text  { grid-area: text; }
+.split-media { grid-area: media; }
+.split-text p:first-child { padding-top: 0; }
+.split-media img {
+  width: 100%;
+  object-fit: cover;
+}
+.split--reverse { grid-template-areas: "media text"; }
+
+/* ---- Info card (Flex column) ------------------------------ */
+.card {
+  display: flex;
+  flex-direction: column;
+  background: #FEFFFF;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.10);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.14);
+}
+.card img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+/* Placeholder card media: willow motif on the section's header colour.
+   Background = --placeholder (olive by default; maroon deck overrides).
+   Willow colour = --willow-color, recoloured purely in CSS. */
+.card-media {
+  aspect-ratio: 16 / 9;
+  background: var(--placeholder, var(--light-green));
+  display: grid;
+  place-items: center;
+}
+.card-media .willow {
+  height: 64%;
+  width: auto;
+  fill: var(--willow-color, var(--font-white));
+}
+.card-body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.75rem 1rem 1rem;
+}
+.card h3 {
+  font-family: "open-sans-condensed", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  color: var(--light-green);
+  font-size: 1.2rem;
+  margin-bottom: 0.15rem;
+}
+.card p {
+  padding: 0;
+  font-family: "open-sans-condensed", Arial, Helvetica, sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.25;
+  /* Cards are narrow; a long unbroken string (an email address, a URL) would
+     otherwise push past the card edge. */
+  overflow-wrap: break-word;
+}
+.card a.map {
+  font-family: "open-sans-condensed", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  color: var(--dark-blue);
+  margin-top: 0.25rem;
+}
+
+/* Event-card extras (data-driven cards) */
+.card .badge {
+  align-self: flex-start;
+  background: var(--red);
+  color: var(--font-white);
+  font-family: "open-sans-condensed", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  padding: 0.1em 0.7em;
+  border-radius: 999px;
+  margin-bottom: 0.35rem;
+}
+.card .teacher {
+  font-style: italic;
+}
+
+/* Opportunity kind (Volunteer / Teach / Harvest …). Same shape as the sold-out
+   badge but olive, so red stays reserved for "you can't book this". */
+.card .badge--kind {
+  background: var(--light-green);
+}
+.card a.reg {
+  align-self: flex-start;
+  margin-top: auto;
+  background: var(--yellow);
+  color: #fff; letter-spacing: 0.03em;
+  font-family: "baloo", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.4em 1.1em;
+  border-radius: var(--radius);
+}
+.card a.reg:hover { background: var(--maroon); }
+
+/* The CTA is bottom-aligned (margin-top:auto), so in a densely packed card —
+   one with a long address, say — it ends up flush against the last line of
+   text. Pad the element directly above it to guarantee a gap, rather than
+   widening .card-body's gap, which would loosen the tight date/area/location
+   lines too. */
+.card-body > :has(+ a.reg),
+.card-body > :has(+ p.reg) {
+  padding-bottom: 0.6rem;
+}
+.card p.reg {
+  margin-top: auto;
+  font-family: "open-sans-condensed", Arial, Helvetica, sans-serif;
+  font-size: 0.95rem;
+}
+.deck .empty,
+.card-grid .empty {
+  padding: 1em 0;
+  font-family: "open-sans", Arial, Helvetica, sans-serif;
+  color: var(--font-black);
+}
+
+/* Gold "Request a workshop" tile (events page) */
+.card--cta {
+  background: var(--yellow);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1rem;
+  min-height: 10rem;
+  text-decoration: none;
+}
+.card--cta * { color: #fff; }
+.card--cta { color: #fff; font-family: "baloo", Arial, Helvetica, sans-serif; font-weight: 700; font-size: 1.2rem; letter-spacing: 0.03em; }
+
+/* ---- Deck : horizontal scroll-snap carousel + arrows ------ */
+.deck-wrap { position: relative; min-width: 0; }
+.deck {
+  display: flex;
+  gap: var(--gutter);
+  overflow-x: auto;
+  min-width: 0;                        /* contain scroll instead of overflowing */
+  scroll-snap-type: x mandatory;
+  padding-bottom: 0.5rem;
+  scrollbar-width: none;               /* arrows + peek are the affordance */
+}
+.deck::-webkit-scrollbar { display: none; }
+.deck > * {
+  flex: 0 0 var(--card-min);
+  scroll-snap-align: start;
+}
+
+/* Prev / next controls — grouped below the deck (wired up in deck.js) */
+.deck-controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+.deck-nav {
+  width: 2.75rem;
+  height: 2.75rem;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: var(--yellow);
+  color: #fff;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s ease, opacity 0.15s ease;
+}
+.deck-nav:hover { background: var(--maroon); }
+.deck-wrap.at-start .deck-nav.prev,
+.deck-wrap.at-end   .deck-nav.next {
+  opacity: 0.3;
+  pointer-events: none;
+}
+.deck-wrap.no-scroll .deck-controls { display: none; }
+
+/* ---- Category heading above a card grid -------------------- */
+/* Sits a step below the panel's h2 ("Upcoming Events") and labels each
+   group of cards: Community Events, Festivals, Guild Events. */
+.grid-head {
+  /* Same treatment as .card h3, so the category label reads as part of the
+     grid rather than as a competing heading. */
+  font-family: "open-sans-condensed", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  line-height: 1.1;
+  color: var(--light-green);
+  margin: 0;
+  grid-column: 1 / -1;   /* span the whole card-grid row */
+}
+
+/* ---- Fixed reflowing card grid (e.g. Past events) --------- */
+.card-grid {
+  display: grid;
+  /* auto-fill, not auto-fit: auto-fit collapses tracks that hold no items, so a
+     grid with fewer cards than columns (the opportunities page, with just the
+     CTA) stretches them across the panel. auto-fill keeps every card the same
+     width as the event cards regardless of how many there are. */
+  grid-template-columns: repeat(auto-fill, minmax(var(--card-min), 1fr));
+  gap: var(--gutter);
+}
+
+/* ---- Contact list ----------------------------------------- */
+/* Plain content, not cards: these are ways to reach us, not things to book.
+   Stacked rows with the label in a narrow left column — three side-by-side
+   columns left every address wrapping mid-word. */
+.contact-list {
+  display: grid;
+  gap: clamp(1rem, 2.5vw, 1.4rem);
+}
+.contact-item {
+  display: grid;
+  grid-template-columns: minmax(0, 12rem) minmax(0, 1fr);
+  gap: 0.2rem 2rem;
+  align-items: start;
+  padding-bottom: clamp(1rem, 2.5vw, 1.4rem);
+  border-bottom: 1px solid var(--gray);
+}
+.contact-list .contact-item:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+.contact-item h3 {
+  font-family: "open-sans-condensed", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--light-green);
+  margin: 0;
+  line-height: 1.3;
+}
+.contact-item p {
+  margin: 0 0 0.35rem;
+  padding: 0;
+  overflow-wrap: break-word;
+}
+.contact-item p:last-child { margin-bottom: 0; }
+.contact-item a {
+  font-weight: 700;
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 40em) {
+  .contact-item { grid-template-columns: minmax(0, 1fr); gap: 0.25rem; }
+}
+
+/* ---- Resource list ---------------------------------------- */
+/* Same row shape as the contact list: a short label on the left, the thing
+   itself on the right. */
+.resource-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: clamp(1rem, 2.5vw, 1.4rem);
+}
+.resource-item {
+  display: grid;
+  grid-template-columns: minmax(0, 8rem) minmax(0, 1fr);
+  gap: 0.2rem 2rem;
+  align-items: baseline;
+  padding-bottom: clamp(1rem, 2.5vw, 1.4rem);
+  border-bottom: 1px solid var(--gray);
+}
+.resource-list .resource-item:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+.resource-kind {
+  font-family: "open-sans-condensed", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--font-black);
+  opacity: 0.55;
+}
+.resource-item h3 {
+  font-family: "open-sans-condensed", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  line-height: 1.25;
+  margin: 0 0 0.2rem;
+}
+.resource-item h3 a { color: var(--dark-blue); }
+.resource-ext { font-size: 0.85em; opacity: 0.7; }
+.resource-item p { margin: 0; padding: 0; max-width: 60ch; }
+
+@media (max-width: 40em) {
+  .resource-item { grid-template-columns: minmax(0, 1fr); gap: 0.15rem; }
+}
+
+/* Lead paragraph inside a long-form resource article. */
+.panel-inner .description {
+  font-size: 1.08rem;
+  max-width: 62ch;
+}
+
+.resource-byline {
+  font-family: "open-sans-condensed", Arial, Helvetica, sans-serif;
+  font-size: 0.9rem;
+  opacity: 0.7;
+  margin-top: 0.2rem !important;
+}
+
+/* ---- Photo-essay rows (resource articles) ------------------ */
+/* A photo beside its caption. The images are phone shots in both portrait and
+   landscape, so cap the height and let each keep its own aspect ratio rather
+   than cropping them to a common shape. */
+.flex-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2.5rem);
+  align-items: center;
+}
+.flex-row img {
+  max-width: 100%;
+  max-height: 24rem;
+  width: auto;
+  height: auto;
+  justify-self: center;
+  border-radius: var(--radius);
+}
+.flex-row .text-content p {
+  margin: 0;
+  padding: 0;
+  max-width: 42ch;
+}
+/* Photos that carry a step on their own, with no caption. */
+.flex-row--solo {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+}
+
+.resource-credit {
+  margin-top: 0;
+}
+.resource-published {
+  font-family: "open-sans-condensed", Arial, Helvetica, sans-serif;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+@media (max-width: 40em) {
+  .flex-row { grid-template-columns: minmax(0, 1fr); gap: 0.75rem; }
+  .flex-row img { max-height: 20rem; }
+}
+
+/* ---- Supplier directory ----------------------------------- */
+.supplier-group { display: grid; gap: 1rem; }
+.supplier-group + .supplier-group { margin-top: clamp(1.5rem, 4vw, 2.5rem); }
+.supplier-group > h3 {
+  font-family: "baloo", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+  color: var(--light-green);
+  margin: 0;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid var(--gray);
+}
+.supplier-region {
+  font-family: "open-sans-condensed", Arial, Helvetica, sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--font-black);
+  opacity: 0.55;
+  margin-left: 0.5rem;
+}
+.supplier {
+  display: grid;
+  gap: 0.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--gray);
+  max-width: 62ch;
+}
+.supplier:last-child { border-bottom: 0; padding-bottom: 0; }
+.supplier h4 {
+  font-family: "open-sans-condensed", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 1.15rem;
+  margin: 0;
+}
+.supplier-person { font-weight: 400; opacity: 0.75; }
+.supplier-person::before { content: "\00b7\00a0"; }
+.supplier-location,
+.supplier-note {
+  font-family: "open-sans-condensed", Arial, Helvetica, sans-serif;
+  font-size: 0.92rem;
+  opacity: 0.75;
+  margin: 0;
+}
+.supplier p { margin: 0; padding: 0; }
+.supplier-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+  margin-top: 0.15rem !important;
+}
+.supplier-links a {
+  font-family: "open-sans-condensed", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.supplier-cta {
+  margin-top: clamp(2rem, 5vw, 3rem);
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  background: var(--background-dark);
+  border-radius: var(--radius);
+  display: grid;
+  gap: 0.5rem;
+  max-width: 62ch;
+}
+.supplier-cta h3 {
+  font-family: "baloo", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--maroon);
+  margin: 0;
+}
+.supplier-cta p { margin: 0; padding: 0; }
+.supplier-cta .reg {
+  justify-self: start;
+  display: inline-block;
+  background: var(--yellow);
+  color: #fff;
+  font-family: "baloo", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  padding: 0.4em 1.1em;
+  border-radius: var(--radius);
+  margin-top: 0.35rem;
+}
+.supplier-cta .reg:hover { background: var(--maroon); }
+
+/* ---- Newsletter archive list ------------------------------ */
+.archive {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+}
+.archive li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.1rem 1.5rem;
+  padding: 0.6em 0;
+  border-bottom: 1px solid var(--gray);
+}
+.archive li:last-child { border-bottom: 0; }
+.archive a {
+  font-family: "open-sans-condensed", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--dark-blue);
+}
+.archive .archive-date {
+  font-family: "open-sans-condensed", Arial, Helvetica, sans-serif;
+  font-size: 0.9rem;
+  color: var(--font-black);
+  opacity: 0.7;
+  white-space: nowrap;
+}
+
+/* ---- Call-to-action band (full-bleed) --------------------- */
+.cta-band {
+  grid-column: full;
+  display: grid;
+  grid-template-columns:
+    minmax(var(--gutter), 1fr)
+    minmax(0, var(--content-width))
+    minmax(var(--gutter), 1fr);
+  background: var(--light-green);
+  padding-block: clamp(2.5rem, 6vw, 4rem);
+}
+.cta-band .cta-inner {
+  grid-column: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gutter);
+}
+.cta-band h2 {
+  color: var(--font-white);
+  margin: 0;
+  text-align: center;
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+}
+.cta-band .basic-button {
+  font-size: 1.3rem;
+  padding: 0.45em 1.6em;
+  border-radius: var(--radius);
+}
+
+/* ============================================================
+   MOBILE  (<= 48em)
+   Stack columns; turn section headings into full-width bars.
+   =========================================================== */
+@media (max-width: 48em) {
+  .hero { grid-template-columns: 1fr; }
+
+  .split,
+  .split--reverse {
+    grid-template-columns: 1fr;
+    grid-template-areas: "text" "media";
+  }
+
+  /* Section heading -> full-bleed coloured bar */
+  .section-head h2 {
+    display: block;
+    border: 0;
+    color: var(--font-white);
+    background: var(--light-green);
+    margin-inline: calc(-1 * var(--gutter));
+    padding: 0.55em var(--gutter);
+    font-size: 1.7rem;
+  }
+  .section-head.maroon h2 { background: var(--maroon); color: var(--font-white); }
+  .section-lead { margin-top: 0; }
+
+  /* Cards peek; swipe to scroll (arrows hidden) */
+  .deck > * { flex-basis: min(78%, var(--card-min)); }
+  .deck-controls { display: none; }
+}

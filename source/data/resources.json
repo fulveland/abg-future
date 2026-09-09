@@ -1,0 +1,96 @@
+{
+  "resources": [
+    {
+      "id": "discerning-ditch-willow",
+      "title": "Finding and Discerning good Ditch Willows",
+      "kind": "Guide",
+      "summary": "Where to look, when to cut, what thickness to collect, and how to keep a wild patch going year after year.",
+      "url": "/resources/discerning-ditch-willow",
+      "external": false,
+      "byline": "Maryann Borch, edited by Cathie Harper"
+    },
+    {
+      "id": "stripping-willow",
+      "title": "Stripping Willow",
+      "kind": "Guide",
+      "summary": "Three tools and the technique for taking bark off willow in one clean strip, photographed step by step.",
+      "url": "/resources/stripping-willow",
+      "external": false,
+      "byline": "Crys Harse"
+    },
+    {
+      "id": "willow-cuttings",
+      "title": "Where to buy willow cuttings",
+      "kind": "Directory",
+      "summary": "Growers across Canada selling dormant cuttings for starting your own basketry willow.",
+      "url": "/resources/willow-cuttings",
+      "external": false
+    },
+    {
+      "id": "material-and-tool-suppliers",
+      "title": "Material and tool suppliers in Alberta",
+      "kind": "Directory",
+      "summary": "Who sells willow, cattails and dandelions, broom fibre and tools — wild-harvested and cultivated, listed by what they supply.",
+      "url": "https://docs.google.com/document/d/1c8zr1rcwRGayzJcDcFwYP5DaLRCU5-yPabsOB0AF1Gw/edit?usp=sharing",
+      "external": true
+    },
+    {
+      "id": "salix-species-list",
+      "title": "Salix species list with variety names",
+      "kind": "Reference",
+      "summary": "The willow species and named varieties growing in Alberta collections and gardens.",
+      "url": "https://docs.google.com/document/d/1CB5B_a-IQnhIR8rZYiiINBqxiu_enkqj1GPrnZSf1Q4/edit?usp=sharing",
+      "external": true
+    },
+    {
+      "id": "salix-identification-guide",
+      "title": "A Guide to the Identification of Salix (Willows) in Alberta",
+      "kind": "PDF",
+      "summary": "A 73-page key to Alberta's willow species, from a willow identification workshop held in Jasper National Park.",
+      "url": "https://accs.uaa.alaska.edu/wp-content/uploads/GuideToIdentification_SalixAlberta.pdf",
+      "external": true,
+      "byline": "George W. Argus, 2008 — Devonian Botanical Garden"
+    },
+    {
+      "id": "edmonton-willow-season-2020",
+      "title": "Edmonton Willow Season 2020",
+      "kind": "PDF",
+      "summary": "A pictorial record of willow observations through a season in Whitemud North and the Wagner Natural Area.",
+      "url": "https://anpc.ab.ca/wp-content/uploads/2021/02/Edmonton-Willow-Season-2020.pdf",
+      "external": true,
+      "byline": "Compiled by Jiri Novak, 2021 — Alberta Native Plant Council"
+    },
+    {
+      "id": "instructor-list",
+      "title": "Alberta Basketry Guild instructor list",
+      "kind": "Directory",
+      "summary": "Who teaches what, where they travel, and how to reach them.",
+      "url": "https://docs.google.com/document/d/1D1XW4qUhjML85bAQQ4liyjJ9gmLWBC50ab0JHsdkHQc/edit?usp=sharing",
+      "external": true
+    },
+    {
+      "id": "upcoming-events-doc",
+      "title": "Upcoming basketry workshops and events in Alberta",
+      "kind": "Directory",
+      "summary": "The shared list our community keeps up to date — workshops, retreats, festivals and opportunities.",
+      "url": "https://docs.google.com/document/d/1dhgJwV8t3fY0OFcPs63fXMrw8cP8lpOxO6FHU4XCdDA/edit?usp=sharing",
+      "external": true
+    },
+    {
+      "id": "promote-your-event",
+      "title": "How to promote your basket weaving event",
+      "kind": "Guide",
+      "summary": "Ways to get the word out about a workshop beyond our own list.",
+      "url": "https://docs.google.com/document/d/16nIuNEGBWpgKA6pCijtQPcqg_Uz7phUNu9CYKRBEIjA/edit?usp=sharing",
+      "external": true
+    },
+    {
+      "id": "native-land",
+      "title": "native-land.ca",
+      "kind": "External",
+      "summary": "Learn about the cultures, communities and languages present where we harvest our materials and weave.",
+      "url": "https://native-land.ca/",
+      "external": true
+    }
+  ]
+}

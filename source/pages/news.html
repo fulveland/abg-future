@@ -1,17 +1,36 @@
-<section id="newsletter">
-    <h2>Newsletter</h2>
-    <img class="" src="images/">
-    <p>We try to put out a short newsletter with a list of upcoming basketry events in Alberta once a month.</p>
+<!-- NEWS -->
+
+<section class="panel" aria-labelledby="newsletter-h">
+  <div class="panel-inner">
+    <div class="section-head olive"><h2 id="newsletter-h">Newsletter</h2></div>
+
+    <div class="split">
+      <div class="split-text">
+        <p class="top">Once a month we send a short round-up of upcoming basketry events in Alberta &mdash; workshops, retreats, harvests, and the occasional call for weavers.</p>
+        <p>It&rsquo;s the easiest way to hear about a workshop before it fills.</p>
+
         <div class="newsletter-signup">
-            <form action="https://buttondown.email/api/emails/embed-subscribe/albertabasketry" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.email/inkandswitch', 'popupwindow')">
-                <label>
-                    <span>Email</span>
-                    <input type="email" name="email">
-                </label>
-                <input type="submit" value="Sign Up">
+            <form action="https://buttondown.email/api/emails/embed-subscribe/albertabasketry" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.email/albertabasketry', 'popupwindow')">
+              <label>
+                <input type="email" name="email" placeholder="you@example.com" aria-label="Email address">
+              </label>
+              <input type="submit" value="Sign Me Up">
             </form>
-        </div>
+          </div>
+      </div>
+
+      <div class="split-media">
+        <img src="/assets/news-hero.jpg" alt="Two weavers in a greenhouse holding up the woven willow stars they have just made." loading="lazy">
+      </div>
+    </div>
+  </div>
 </section>
-<section id="past-newsletters">
-    <h2>Past Newsletters</h2>
+
+<section class="panel panel--tint" aria-labelledby="past-newsletters-h">
+  <div class="panel-inner">
+    <div class="section-head olive"><h2 id="past-newsletters-h">Past Newsletters</h2></div>
+    <p class="section-lead">Every issue we&rsquo;ve sent, newest first. You can also browse them on <a class="outlink" href="https://buttondown.com/albertabasketry/archive/">Buttondown</a>.</p>
+
+    {{NEWSLETTERS}}
+  </div>
 </section>

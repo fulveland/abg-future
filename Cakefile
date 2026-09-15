@@ -109,8 +109,14 @@ eventCard = (ev)->
   # data-type drives the Open weaves / Workshops / Retreats filter buttons.
   # Cards with no type (and the CTA cards) are left alone by the filter.
   typeAttr = if ev.type then ' data-type="' + esc(ev.type.toLowerCase()) + '"' else ""
+  # data-until is the last day the event is still on. expire.js re-runs the
+  # upcoming/past test in the visitor's browser and drops the card once that
+  # day has gone by, so the list stays current between builds. Recurring
+  # entries carry no data-until and are never dropped.
+  lastDay = if ev.date?.recurring then null else (ev.date?.end or ev.date?.start)
+  untilAttr = if lastDay then ' data-until="' + esc(lastDay) + '"' else ""
   [
-    '<article class="card"' + typeAttr + '>'
+    '<article class="card"' + typeAttr + untilAttr + '>'
     mediaHTML ev
     '<div class="card-body">'
     badge
@@ -254,8 +260,12 @@ opportunityCard = (op)->
   loc     = if op.location then '<p>' + esc(op.location) + '</p>' else ""
   from    = if op.organizer then '<p class="teacher">From ' + esc(op.organizer) + '</p>' else ""
   summary = if op.summary then '<p>' + esc(op.summary) + '</p>' else ""
+  # Same self-correcting date stamp the event cards carry. Ongoing calls have
+  # no closing date, so they get no data-until and stay put.
+  lastDay = if op.date?.ongoing then null else (op.date?.end or op.date?.start)
+  untilAttr = if lastDay then ' data-until="' + esc(lastDay) + '"' else ""
   [
-    '<article class="card">'
+    '<article class="card"' + untilAttr + '>'
     mediaHTML op
     '<div class="card-body">'
     badge

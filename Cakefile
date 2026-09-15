@@ -25,6 +25,114 @@ readJSON = (p)->
 
 buildDate = -> new Date().toISOString().slice(0, 10)
 
+# DATA CHECK ####################################################################
+# A schema guard for source/data/*.json, run as part of `cake build`.
+#
+# Why this exists as CODE and not as a note: the conventions it enforces were all
+# written down somewhere and all drifted anyway — venue addresses crept back in,
+# times appeared in three date strings while twenty went without, a photo was
+# referenced with no alt text. A rule in a document is a rule nobody runs.
+#
+# A failure stops the build, which stops the deploy. Netlify keeps serving the
+# last good version, so a typo delays a change rather than breaking the site.
+# Run `cake check` on its own to see the problems without building.
+
+EVENT_FIELDS    = "id workshopName type date area location teacher host image imageAlt category soldOut registration contact".split " "
+PAST_FIELDS     = EVENT_FIELDS.concat "highlight photoAlbums photographer".split " "
+OPP_FIELDS      = "id title kind date area location organizer summary image imageAlt contact".split " "
+DATE_KEYS       = "display start end recurring ongoing".split " "
+EVENT_TYPES     = "Workshop Retreat Exhibit Other Open Weave".split " "
+REG_TYPES       = "link waitlist email instagram none".split " "
+MONTHS          = "January February March April May June July August September October November December".split " "
+
+checkData = ->
+  problems = []
+  add = (where, msg)-> problems.push "#{where}: #{msg}"
+
+  checkEntry = (file, e, allowed, opts = {}) ->
+    id = e.id or "(entry with no id)"
+    where = "#{file} #{id}"
+
+    # 1. No fields beyond the documented schema. This is the actual anti-creep rule.
+    for own key of e
+      add where, "unexpected field \"#{key}\"" unless key in allowed
+
+    # 2. The fields every entry must carry.
+    for req in (opts.required or [])
+      add where, "missing \"#{req}\"" unless e[req]?
+
+    d = e.date or {}
+    for own key of d
+      add where, "unexpected date key \"#{key}\"" unless key in DATE_KEYS
+
+    # 3. ISO dates, and display text that agrees with them.
+    for key in ["start", "end"]
+      v = d[key]
+      add where, "date.#{key} \"#{v}\" is not YYYY-MM-DD" if v? and not /^\d{4}-\d{2}-\d{2}$/.test v
+    if d.start and d.end and d.end < d.start
+      add where, "date.end is before date.start"
+
+    if typeof d.display is "string"
+      # No times. The cards carry a date; times live on the registration page.
+      add where, "date.display carries a time (\"#{d.display}\") — dates only" if /\d\s*(am|pm)\b|\d:\d/i.test d.display
+      # The words must match the ISO date, or one of them is wrong.
+      if d.start and (m = d.display.match /^([A-Z][a-z]+)\s+(\d{1,2})/)
+        [_, mon, day] = m
+        if mon in MONTHS
+          want = "#{MONTHS.indexOf(mon) + 1}-#{parseInt day, 10}"
+          got  = "#{parseInt d.start.slice(5, 7), 10}-#{parseInt d.start.slice(8, 10), 10}"
+          add where, "date.display \"#{d.display}\" disagrees with date.start #{d.start}" unless want is got
+    else unless d.recurring or d.ongoing
+      add where, "date.display is missing"
+
+    # 4. Venue names, never street addresses. See CLAUDE.md.
+    if typeof e.location is "string" and /\d+\s*[-–]?\s*\d*\s*\w*\s*(Street|St\.|Avenue|Ave\b|Drive|Dr\.|Road|Rd\.|Blvd|Way)\b/i.test e.location
+      add where, "location \"#{e.location}\" looks like a street address — venue name only"
+
+    # 5. A photo that is missing, or silent to a screen reader.
+    if e.image
+      add where, "image \"#{e.image}\" is not in source/assets/event-photos/" unless exists "source/assets/event-photos/#{e.image}"
+      add where, "has an image but no imageAlt" unless e.imageAlt
+
+    # 6. Known vocabulary only.
+    add where, "unknown type \"#{e.type}\"" if e.type and e.type not in EVENT_TYPES
+    add where, "unknown category \"#{e.category}\"" if e.category and e.category not in CATEGORY_ORDER
+    for link in [e.registration, e.contact] when link?.type
+      add where, "unknown registration/contact type \"#{link.type}\"" unless link.type in REG_TYPES
+
+  seen = {}
+  for [file, key, allowed, required] in [
+    ["events.json",        "events",        EVENT_FIELDS, ["id", "workshopName", "date", "area", "location", "category", "registration"]]
+    ["past-events.json",   "pastEvents",    PAST_FIELDS,  ["id", "workshopName", "date", "area"]]
+    ["opportunities.json", "opportunities", OPP_FIELDS,   ["id", "title", "date", "area"]]
+  ]
+    data = readJSON "source/data/#{file}"
+    unless data?
+      problems.push "#{file}: missing or not valid JSON"
+      continue
+    for e in (data[key] or [])
+      checkEntry file, e, allowed, required: required
+      if e.id
+        problems.push "#{file}: duplicate id \"#{e.id}\"" if seen[e.id] and seen[e.id] isnt file
+        seen[e.id] = file
+
+  problems
+
+reportData = ->
+  problems = checkData()
+  if problems.length
+    console.log "\n  #{problems.length} data problem(s):\n"
+    console.log "   - " + p for p in problems
+    console.log ""
+  problems
+
+task "check", "Check source/data/*.json against the schema", ()->
+  problems = reportData()
+  if problems.length
+    process.exitCode = 1
+  else
+    console.log "  Data OK."
+
 # GOOGLE DOC LINKS ###############################################################
 # The guild's shared docs (instructor list, promote-your-event, suppliers, the
 # members survey) live outside the site, so they open in a new tab — following
@@ -430,6 +538,11 @@ renderEvents = (html)->
 
 task "build", "Compile everything", ()->
   dev = not process.env.NETLIFY
+
+  # Bad data must not reach the site. Netlify keeps serving the last good deploy,
+  # so this turns a silent publishing mistake into a build that simply does not ship.
+  problems = reportData()
+  throw new Error "#{problems.length} data problem(s) — run `cake check`. Nothing was built." if problems.length
 
   rm "public"
 

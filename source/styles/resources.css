@@ -42,6 +42,12 @@
 .prose {
   max-width: 68ch;
 }
+/* The submit pages are a panel of nothing but prose, so the 68ch measure leaves
+   half the panel empty and the text looks stranded against the left edge. This
+   lets it run the full content width. */
+.prose--wide {
+  max-width: none;
+}
 .prose p {
   padding: 0;
   margin: 0 0 1.15em;

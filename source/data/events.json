@@ -121,6 +121,21 @@
       "registration": { "type": "instagram", "handle": "thebeeliberationarmyfolkart", "url": "https://www.instagram.com/thebeeliberationarmyfolkart" }
     },
     {
+      "id": "edmonton-reclaimed-textile-coiled-basket-2026-10-18",
+      "workshopName": "Reclaimed Textile Coiled Basket",
+      "type": "Workshop",
+      "date": { "display": "October 18, 2026, 10 am – 4 pm", "start": "2026-10-18", "end": null },
+      "area": "Edmonton",
+      "location": "Fern's School of Craft",
+      "teacher": "Tania of TK Studio",
+      "host": "Fern's School of Craft",
+      "image": "edmonton-reclaimed-textile-coiled-basket-2026-10-18.jpg",
+      "imageAlt": "Two small coiled baskets made from pale sage, blue-grey and sand-coloured fabric strips, their rims ruffled with looped cloth, resting on smooth stones against a dark background.",
+      "category": "Community Events",
+      "soldOut": false,
+      "registration": { "type": "link", "url": "https://www.fernsschoolofcraft.com/products/october-18-tania" }
+    },
+    {
       "id": "edmonton-mini-bark-dandelion-basket-2026-10-24",
       "workshopName": "Mini Bark Dandelion Basket",
       "type": "Workshop",
@@ -193,7 +208,8 @@
       "imageAlt": "A stack of round willow baskets on the grass in a misty garden at dawn.",
       "category": "Community Events",
       "soldOut": false,
-      "registration": { "type": "link", "url": "https://www.basketsinthegarden.com/" }
+      "registration": { "type": "link", "url": "https://www.basketsinthegarden.com/" },
+      "contact": { "type": "link", "name": "Baskets in the Garden", "url": "https://www.basketsinthegarden.com/", "label": "Visit their website" }
     },
     {
       "id": "bragg-creek-weave-nourish-weekend-2026-10-16",
@@ -325,7 +341,8 @@
       "imageAlt": null,
       "category": "Art Shows",
       "soldOut": false,
-      "registration": { "type": "link", "url": "https://beaverlodgegallery.com" }
+      "registration": { "type": "link", "url": "https://beaverlodgegallery.com" },
+      "contact": { "type": "link", "name": "Beaverlodge Arts and Cultural Centre", "url": "https://beaverlodgegallery.com", "label": "See their events" }
     }
   ]
 }

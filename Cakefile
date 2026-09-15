@@ -25,6 +25,21 @@ readJSON = (p)->
 
 buildDate = -> new Date().toISOString().slice(0, 10)
 
+# GOOGLE DOC LINKS ###############################################################
+# The guild's shared docs (instructor list, promote-your-event, suppliers, the
+# members survey) live outside the site, so they open in a new tab — following
+# one used to replace the page you were reading and lose your place.
+#
+# Applied to the finished HTML rather than at each of the fifteen-odd places the
+# build writes an <a>. One rule, it covers hand-written pages and data-driven
+# cards alike, and nothing has to be remembered when the next doc link is added.
+# rel="noopener" is implied by modern browsers for target="_blank"; it is spelled
+# out so the intent survives.
+googleNewTab = (html)->
+  html.replace /<a\b([^>]*?)href="(https:\/\/(?:docs|drive)\.google\.com\/[^"]*)"([^>]*)>/g, (m, pre, url, post)->
+    return m if /\btarget=/.test m
+    '<a' + pre + 'href="' + url + '"' + post + ' target="_blank" rel="noopener">'
+
 # PAGE META ######################################################################
 # Every page carries a leading <!--META ... --> block of `key: value` lines.
 # The build strips it off and fills the placeholders in _template.html, so each
@@ -426,7 +441,7 @@ task "build", "Compile everything", ()->
     parsed = pageMeta read(path)
     html = replace template, "PAGE CONTENT GOES HERE": parsed.body
     html = applyMeta html, parsed.meta, dest
-    write dest, renderEvents html
+    write dest, googleNewTab renderEvents html
 
   compile "scripts", ()->
     write "public/scripts.js", concat readAll "source/scripts/**/*.js"

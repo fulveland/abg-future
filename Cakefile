@@ -223,9 +223,30 @@ upcomingCards = (limit)->
     out.push evs.filter((e)-> (e.category or "Community Events") is cat).map(eventCard).join("\n")
   out.join "\n"
 
+# The Past grid is past-events.json PLUS anything still sitting in events.json
+# whose date has gone by. Moving a finished event between the two files is a
+# manual step, and it does not reliably happen — the "daily sync" that was meant
+# to do it has never run, so finished events simply stopped appearing anywhere
+# (gone from Upcoming by date, never added to Past by hand). The build now ages
+# them over on its own.
+#
+# past-events.json remains the place for CURATION rather than mere existence: an
+# entry moved there by hand can carry `highlight`, `photoAlbums` and a `contact`
+# for approaching someone about a repeat. A past-events.json entry always wins
+# over an events.json entry with the same id, so moving one by hand upgrades the
+# card instead of duplicating it.
 pastCards = ->
   data = readJSON "source/data/past-events.json"
-  evs = data?.pastEvents or []
+  evs = (data?.pastEvents or []).slice()
+  seen = {}
+  seen[e.id] = true for e in evs when e.id
+  today = buildDate()
+  current = readJSON "source/data/events.json"
+  for e in (current?.events or [])
+    continue if e.date?.recurring          # "Third Tuesday of each month" never ends
+    continue if seen[e.id]                 # already curated in past-events.json
+    last = e.date?.end or e.date?.start
+    evs.push e if last and last < today
   return '<p class="empty">Past event highlights will appear here.</p>' if evs.length is 0
   evs.sort (a, b)->
     return -1 if a.highlight and not b.highlight

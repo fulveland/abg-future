@@ -13,7 +13,7 @@
       "imageAlt": "A round willow tray woven in a scalloped flower pattern, seen from above against a pale wall.",
       "category": "Community Events",
       "soldOut": true,
-      "registration": { "type": "link", "url": "https://www.fernsschoolofcraft.com/products/january-22-willow-tray-7f7ah-cjyhw-t46bm" }
+      "registration": { "type": "waitlist", "url": "https://www.fernsschoolofcraft.com/new-page" }
     },
     {
       "id": "edmonton-berry-basket-2026-12-12",
@@ -28,7 +28,7 @@
       "imageAlt": "A round willow berry basket with an arched handle, standing on a wooden table.",
       "category": "Community Events",
       "soldOut": true,
-      "registration": { "type": "link", "url": "https://www.fernsschoolofcraft.com/products/willow-berry-basket-weaving-jgbzr" }
+      "registration": { "type": "waitlist", "url": "https://www.fernsschoolofcraft.com/new-page" }
     },
     {
       "id": "edmonton-tiny-trug-2026-12-13",
@@ -151,6 +151,21 @@
       "registration": { "type": "instagram", "handle": "thebeeliberationarmyfolkart", "url": "https://www.instagram.com/thebeeliberationarmyfolkart" }
     },
     {
+      "id": "edmonton-pine-needle-basket-2026-11-14",
+      "workshopName": "Pine Needle Basket",
+      "type": "Workshop",
+      "date": { "display": "November 14, 2026", "start": "2026-11-14", "end": null },
+      "area": "Edmonton",
+      "location": "Fern's School of Craft",
+      "teacher": "Tania of TK Studio",
+      "host": "Fern's School of Craft",
+      "image": "edmonton-pine-needle-basket-2026-11-14.jpg",
+      "imageAlt": "A round coiled basket of pale pine needles stitched in a black spiral, a polished grey stone set at its centre, resting among deep red clover leaves.",
+      "category": "Community Events",
+      "soldOut": true,
+      "registration": { "type": "waitlist", "url": "https://www.fernsschoolofcraft.com/new-page" }
+    },
+    {
       "id": "edmonton-trees-whirly-gigs-stars-2026-12-05",
       "workshopName": "Trees, Whirly Gigs & Stars",
       "type": "Workshop",
@@ -256,6 +271,36 @@
       "registration": { "type": "link", "url": "https://www.sheepcreekweavers.ca/programs?utm_source=albertabasketry&utm_medium=email" }
     },
     {
+      "id": "yeoford-pine-needle-basket-2026-09-26",
+      "workshopName": "Beginner Pine Needle Basket Weaving",
+      "type": "Workshop",
+      "date": { "display": "September 26, 2026", "start": "2026-09-26", "end": null },
+      "area": "Yeoford",
+      "location": "Yeoford Hall",
+      "teacher": "Tania of TK Studio",
+      "host": "Yeoford Community Centre",
+      "image": "yeoford-pine-needle-basket-2026-09-26.jpg",
+      "imageAlt": "A round coiled basket of pale pine needles stitched in a black spiral, a polished grey stone set at its centre, resting among deep red clover leaves.",
+      "category": "Community Events",
+      "soldOut": false,
+      "registration": { "type": "link", "url": "https://www.zeffy.com/en-CA/ticketing/yeoford-beginner-pine-needle-basket-weaving-workshop" }
+    },
+    {
+      "id": "gainford-weaving-wildcraft-chai-2026-10-03",
+      "workshopName": "Weaving, Wildcraft & Chai",
+      "type": "Workshop",
+      "date": { "display": "October 3, 2026", "start": "2026-10-03", "end": null },
+      "area": "Gainford",
+      "location": "Medieval Manor Gardens",
+      "teacher": "Kelsey Shapka",
+      "host": "Medieval Manor Gardens",
+      "image": null,
+      "imageAlt": null,
+      "category": "Community Events",
+      "soldOut": false,
+      "registration": { "type": "link", "url": "https://www.mmgardens.ca/product/weaving-wildcraft-chai/" }
+    },
+    {
       "id": "red-deer-weekend-of-weaving-2026-09-25",
       "workshopName": "September Weekend of Weaving",
       "type": "Retreat",
@@ -327,6 +372,21 @@
       "category": "Community Events",
       "soldOut": false,
       "registration": { "type": "link", "url": "https://www.aprilglaicar.com/collections/adult-workshops" }
+    },
+    {
+      "id": "canmore-birch-bark-amulet-necklace-2026-09-17",
+      "workshopName": "Birch Bark Amulet Necklace Workshop",
+      "type": "Workshop",
+      "date": { "display": "September 17, 2026", "start": "2026-09-17", "end": null },
+      "area": "Canmore",
+      "location": "The Polar Atelier",
+      "teacher": "Cathie Harper",
+      "host": "April Glaicar Studios",
+      "image": null,
+      "imageAlt": null,
+      "category": "Community Events",
+      "soldOut": true,
+      "registration": { "type": "waitlist", "url": "https://aprilglaicar.com/collections/adult-workshops/products/birch-bark-amulet-necklace-workshop" }
     },
     {
       "id": "beaverlodge-baskets-from-the-north-v2-2026-08-30",

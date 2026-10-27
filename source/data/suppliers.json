@@ -96,6 +96,19 @@
           ]
         },
         {
+          "id": "brins-d-nature",
+          "name": "",
+          "business": "Brins d’Nature",
+          "location": "Frelighsburg, QC",
+          "supplies": "Willow cuttings and rods from a basketry grower in the Eastern Townships. Cuttings are also sold through the season at farmers&rsquo; and craft markets. The site is in French.",
+          "links": [
+            {
+              "label": "Website",
+              "url": "https://www.brinsdnature.com"
+            }
+          ]
+        },
+        {
           "id": "gwen-graovac",
           "name": "Gwen Graovac",
           "business": "",

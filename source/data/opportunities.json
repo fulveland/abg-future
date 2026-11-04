@@ -1,3 +1,30 @@
 {
-  "opportunities": []
+  "opportunities": [
+    {
+      "id": "alberta-weaving-connections-organisers-2027",
+      "title": "Help organize Weaving Connections",
+      "kind": "Volunteer",
+      "date": { "display": "Ongoing", "start": null, "end": null, "ongoing": true },
+      "area": "Anywhere in Alberta",
+      "location": null,
+      "organizer": "Brittany Haduck",
+      "summary": "Brittany is looking for helping hands, and for a venue, for the next gathering.",
+      "image": null,
+      "imageAlt": null,
+      "contact": { "type": "email", "name": "Brittany Haduck", "email": "brittany@albertabasketryguild.com", "label": "Email Brittany" }
+    },
+    {
+      "id": "edmonton-willow-mentor-wanted-2026-11",
+      "title": "Looking for a willow mentor",
+      "kind": "Mentor",
+      "date": { "display": "Ongoing", "start": null, "end": null, "ongoing": true },
+      "area": "Edmonton",
+      "location": null,
+      "organizer": "Ashley",
+      "summary": "A newer weaver hoping to learn from someone around Edmonton or Sherwood Park.",
+      "image": null,
+      "imageAlt": null,
+      "contact": { "type": "email", "name": "Alberta Basketry Guild", "email": "mail@albertabasketryguild.com", "label": "Put us in touch" }
+    }
+  ]
 }

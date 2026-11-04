@@ -1,0 +1,17 @@
+{
+  "places": [
+    { "name": "Beaverlodge",   "lat": 55.21,  "note": null },
+    { "name": "Gainford",      "lat": 53.59,  "note": null },
+    { "name": "Edmonton",      "lat": 53.53,  "note": null },
+    { "name": "Sherwood Park", "lat": 53.52,  "note": null },
+    { "name": "Tofield",       "lat": 53.37,  "note": null },
+    { "name": "Devon",         "lat": 53.36,  "note": null },
+    { "name": "New Sarepta",   "lat": 53.25,  "note": null },
+    { "name": "Yeoford",       "lat": 52.40,  "note": "approximate — a hamlet in Lacombe County, north of Red Deer" },
+    { "name": "Red Deer",      "lat": 52.27,  "note": null },
+    { "name": "Canmore",       "lat": 51.09,  "note": null },
+    { "name": "Calgary",       "lat": 51.05,  "note": null },
+    { "name": "Bragg Creek",   "lat": 50.95,  "note": null },
+    { "name": "Millarville",   "lat": 50.76,  "note": null }
+  ]
+}

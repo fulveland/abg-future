@@ -103,12 +103,12 @@ checkData = ->
     add where, "unknown type \"#{e.type}\"" if e.type and e.type not in EVENT_TYPES
     add where, "unknown category \"#{e.category}\"" if e.category and e.category not in CATEGORY_ORDER
     # Places order the events page north to south, so a new one needs a slot in
-    # AREA_ORDER. Until it has one it lands at the bottom of the towns, which is
+    # places.json. Until it has one it lands at the bottom of the towns, which is
     # wrong rather than merely unsorted, so say so.
     # material is a string or a list of them; every value must be known.
     for mat in materialsOf e
       add where, "unknown material \"#{mat}\" — one of: #{MATERIALS.join ", "}" unless mat in MATERIALS
-    add where, "area \"#{e.area}\" is not in AREA_ORDER — add it in the Cakefile, in latitude order" if e.area and e.area isnt ONLINE_AREA and e.area not in AREA_ORDER
+    add where, "area \"#{e.area}\" is not in places.json — add { \"name\": \"#{e.area}\", \"lat\": <latitude>, \"note\": null } to source/data/places.json; the order sorts itself" if e.area and e.area not in SPECIAL_AREAS and e.area not in areaOrder()
     for link in [e.registration, e.contact] when link?.type
       add where, "unknown registration/contact type \"#{link.type}\"" unless link.type in REG_TYPES
 
@@ -127,6 +127,29 @@ checkData = ->
       if e.id
         problems.push "#{file}: duplicate id \"#{e.id}\"" if seen[e.id] and seen[e.id] isnt file
         seen[e.id] = file
+
+  # places.json is a different shape from the three above — no ids, no dates —
+  # so it gets its own pass. It decides the order of the whole events page, and
+  # a typo here is silent otherwise: the place simply sorts to the wrong end.
+  places = readJSON "source/data/places.json"
+  if not places?.places?
+    problems.push "places.json: missing or not valid JSON"
+  else
+    namesSeen = {}
+    for pl in places.places
+      where = "places.json #{pl?.name or "(entry with no name)"}"
+      for own key of pl
+        problems.push "#{where}: unexpected field \"#{key}\"" unless key in ["name", "lat", "note"]
+      if typeof pl?.name isnt "string" or pl.name.length is 0
+        problems.push "#{where}: \"name\" must be a non-empty string"
+      else
+        problems.push "#{where}: listed twice" if namesSeen[pl.name]
+        namesSeen[pl.name] = true
+        problems.push "#{where}: \"#{pl.name}\" belongs to no latitude and is handled on its own — do not list it here" if pl.name in SPECIAL_AREAS
+      if typeof pl?.lat isnt "number"
+        problems.push "#{where}: \"lat\" must be a number — it is what puts the place in order, north to south"
+      else unless 48 <= pl.lat <= 61
+        problems.push "#{where}: latitude #{pl.lat} is outside Alberta (49 to 60) — check it is not a longitude"
 
   problems
 
@@ -353,20 +376,20 @@ CATEGORY_ORDER = [
 # map reads. The latitudes are town centres and are not used in code — the
 # order of this list is what matters — but they are written down so a new place
 # can be slotted into the right gap without anyone having to guess.
-AREA_ORDER = [
-  "Beaverlodge"   # 55.21
-  "Gainford"      # 53.59
-  "Edmonton"      # 53.53
-  "Tofield"       # 53.37
-  "Devon"         # 53.36
-  "New Sarepta"   # 53.25
-  "Yeoford"       # about 52.4, a hamlet in Lacombe County, north of Red Deer
-  "Red Deer"      # 52.27
-  "Canmore"       # 51.09
-  "Calgary"       # 51.05
-  "Bragg Creek"   # 50.95
-  "Millarville"   # 50.76
-]
+# Places live in source/data/places.json, not here, because new ones turn up
+# often and adding one should not mean editing the build. A place is a name and
+# a latitude; the order on the events page is that latitude, north first, worked
+# out here rather than maintained by hand — so a new place cannot land in the
+# wrong slot. Freyja, 2026-11-04.
+#
+# Read once per build and remembered, since every card asks for it.
+areaOrderCache = null
+areaOrder = ->
+  return areaOrderCache if areaOrderCache?
+  data = readJSON "source/data/places.json"
+  rows = (data?.places or []).filter (pl)-> pl?.name and typeof pl.lat is "number"
+  rows.sort (a, b)-> b.lat - a.lat          # north first
+  areaOrderCache = rows.map (pl)-> pl.name
 
 # Two sections sit below every place. Online belongs to no latitude, and broom
 # workshops are their own thing wherever they happen, so they gather at the
@@ -375,6 +398,15 @@ AREA_ORDER = [
 # or a besom and it goes there, and it appears there INSTEAD of under its town,
 # never in both.
 ONLINE_AREA = "Online"
+
+# An opportunity often belongs to no town — the next Weaving Connections has no
+# venue yet, and a call for help does not need one. "Anywhere in Alberta" is a
+# real value in opportunities.json (it always was, in the format doc) and must
+# not be sent looking for a latitude. Freyja, 2026-11-04.
+PROVINCE_WIDE = "Anywhere in Alberta"
+
+# Areas that belong to no latitude and so are not in places.json.
+SPECIAL_AREAS = [ONLINE_AREA, PROVINCE_WIDE]
 
 # Sorting by material shows three sections for now, not ten: Willow, then
 # Misc for everything else, then the tail below. Freyja's call, 2026-11-04 —
@@ -459,10 +491,10 @@ upcomingGroups = ->
   for e in rest
     a = e.area or ""
     present.push a unless a in present
-  known   = AREA_ORDER.filter (a)-> a in present
+  known   = areaOrder().filter (a)-> a in present
   # A place nobody has given a latitude yet still gets a heading, after the
   # ones we have placed. checkData nags about it so it does not stay that way.
-  unknown = present.filter((a)-> a isnt ONLINE_AREA and a not in AREA_ORDER).sort()
+  unknown = present.filter((a)-> a isnt ONLINE_AREA and a not in areaOrder()).sort()
 
   groups = []
   for a in known.concat unknown

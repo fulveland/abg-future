@@ -823,7 +823,6 @@
 @media (max-width: 48em) {
   .events-nav.is-stuck {
     padding-block: 0.4rem;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.07);
   }
   .events-nav.is-stuck .events-nav-row { gap: 0.35rem 0.6rem; }
   .events-nav.is-stuck .events-nav-row + .events-nav-row { margin-top: 0.35rem; }

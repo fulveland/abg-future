@@ -130,10 +130,13 @@
     sources().forEach(function (card) {
       // Each material the event is made of puts it in that section, so a
       // willow-and-whatever open weave shows under Willow and under Misc.
+      // A retreat, festival or art show appears ONLY in its own section at
+      // the foot of the page, never also under a material. Freyja asked for
+      // both ways on 2026-11-04 and settled on this one: sorting by material
+      // is a question about workshops. In the PLACE view they still appear
+      // twice, under their town and again under Retreats.
       var tails = attrList("data-tail", card);
       if (tails.length) {
-        // A retreat, festival or art show keeps its own section and is not
-        // also filed under a material.
         tails.forEach(function (t) {
           for (var j = 0; j < TAIL_SECTIONS.length; j++) {
             if (TAIL_SECTIONS[j].key === t) { add(MATERIAL_SECTIONS.length + j, card); return; }
@@ -157,6 +160,24 @@
     // this grouping's own. The snapshot still holds them for the trip back.
     Array.prototype.forEach.call(grid.querySelectorAll(".grid-head"), function (h) {
       h.parentNode.removeChild(h);
+    });
+    // The build renders a retreat twice — once under its town, once under
+    // Retreats. Only one of each is being re-appended below, so the spare
+    // copies have to come off the page or they sit where their town used to
+    // be, above the first heading. The snapshot still references them, so
+    // going back to Place puts them right back.
+    var keep = sources();
+    cards().forEach(function (c) {
+      if (keep.indexOf(c) === -1 && c.parentNode) c.parentNode.removeChild(c);
+    });
+
+    // Soonest first inside every section, the same order the build used.
+    // data-order is the card's place in that order, so there is no second
+    // copy of the date logic here to fall out of step.
+    secs.forEach(function (b) {
+      b.items.sort(function (x, y) {
+        return (+x.getAttribute("data-order") || 0) - (+y.getAttribute("data-order") || 0);
+      });
     });
 
     var used = {};

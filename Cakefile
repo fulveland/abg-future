@@ -259,11 +259,15 @@ eventCard = (ev)->
   # page, so the browser does not have to work that out a second time.
   tks = tailKeys ev
   tailAttr = if tks.length then ' data-tail="' + tks.join(",") + '"' else ""
+  ordAttr = if ev.id? and upcomingOrder[ev.id]? then ' data-order="' + upcomingOrder[ev.id] + '"' else ""
   # The same event can be rendered more than once, so the card carries its id
   # and the browser can tell a second copy from a second event.
   idAttr = if ev.id then ' data-event-id="' + esc(ev.id) + '"' else ""
+  # A sold-out card is faded back, so the ones people can still book carry the
+  # page. The badge and the waitlist link stay at full strength.
+  soldClass = if ev.soldOut then " card--sold" else ""
   [
-    '<article class="card"' + typeAttr + untilAttr + matAttr + tailAttr + idAttr + '>'
+    '<article class="card' + soldClass + '"' + typeAttr + untilAttr + matAttr + tailAttr + idAttr + ordAttr + '>'
     mediaHTML ev
     '<div class="card-body">'
     badge
@@ -422,6 +426,13 @@ anchorSlug = (s)->
 
 # Every upcoming event, soonest first. Recurring entries ("Third Tuesday of
 # each month") have no end date and never fall out.
+# Where each event falls in the one true order, by id. The browser regroups
+# these same cards by material, and would otherwise end up walking them in
+# town order — all of Edmonton's dates, then all of Tofield's. Writing the
+# position onto the card as data-order means the browser sorts by exactly the
+# same rule as the build, rather than by a second copy of the date logic.
+upcomingOrder = {}
+
 upcomingList = ->
   data = readJSON "source/data/events.json"
   return [] unless data?.events
@@ -429,6 +440,7 @@ upcomingList = ->
   evs = data.events.filter (e)->
     e.date?.recurring or ((e.date?.end or e.date?.start or "9999") >= today)
   evs.sort byStart
+  upcomingOrder[e.id] = i for e, i in evs when e.id
   evs
 
 # The ordered sections of the events page. Shared by the grid and by the index

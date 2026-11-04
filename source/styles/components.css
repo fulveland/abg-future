@@ -297,6 +297,43 @@
   scroll-margin-top: 1.5rem;
 }
 
+/* ---- A workshop that is sold out -------------------------- */
+/* Faded back so the ones people can still book carry the page, but still
+   readable: the point is that it ran, and that it could run again. The badge
+   and the waitlist link stay at full strength, because they are the two
+   things someone looking at a sold-out card still needs. */
+/* The card stays a card — same white, same shadow, same lift on hover. What
+   fades is what is inside it: the photo loses nearly all its colour and most
+   of its weight, and the words go light. The badge and the waitlist link
+   stay at full strength, because they are the two things someone looking at
+   a sold-out card still needs. Freyja, 2026-11-04. */
+/* Both shapes the card's picture can take: a real photo is a bare <img>
+   straight inside the article, and only the "photo coming soon" placeholder
+   is a .card-media div. Styling .card-media alone silently misses every card
+   that actually has a photo. */
+.card--sold > img,
+.card--sold .card-media {
+  opacity: 0.3;
+  filter: grayscale(1);
+}
+/* Everything in the body fades, the Sold out badge included. The waitlist
+   button is the one exception, and not because it should stay loud: dimming
+   it would put white text on pale gold at about 2:1, which nobody could
+   read. It gets a quiet grey fill and dark text instead, so it recedes like
+   the rest while staying legible. */
+.card--sold .card-body > :not(.reg) { opacity: 0.4; }
+.card--sold a.reg,
+.card--sold p.reg {
+  background: var(--background-dark);
+  color: var(--maroon);
+  box-shadow: none;
+}
+.card--sold a.reg:hover,
+.card--sold a.reg:focus-visible {
+  background: var(--cream);
+  color: var(--maroon);
+}
+
 /* ---- Index of places above the events grid ----------------- */
 /* The events page is one long list grouped by place, north to south. This is
    the short way down to the part someone wants. Plain wrapped links rather

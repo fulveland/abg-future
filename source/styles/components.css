@@ -292,6 +292,122 @@
   color: var(--light-green);
   margin: 0;
   grid-column: 1 / -1;   /* span the whole card-grid row */
+  /* Jumping here from the index should not park the heading against the very
+     top of the window, with its first row of cards half off-screen. */
+  scroll-margin-top: 1.5rem;
+}
+
+/* ---- Index of places above the events grid ----------------- */
+/* The events page is one long list grouped by place, north to south. This is
+   the short way down to the part someone wants. Plain wrapped links rather
+   than a sidebar: there are a dozen at most, and it has to survive a phone. */
+.area-index ul {
+  list-style: none;
+  margin: 0 0 var(--gutter);
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+}
+.area-index a {
+  display: block;
+  font-family: "open-sans-condensed", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--maroon);
+  text-decoration: none;
+  padding: 0.45em 0.8em;
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+}
+.area-index a:hover,
+.area-index a:focus-visible {
+  background: var(--maroon);
+  border-color: var(--maroon);
+  color: var(--font-white);
+}
+/* group.js rebuilds this list whenever the grouping changes or the type
+   filter empties a section, so it never points at a heading that is not
+   there. It hides the whole block when fewer than two sections are left. */
+.area-index a[hidden] { display: none; }
+
+/* ---- Sort by place / by material -------------------------- */
+/* Rendered hidden by the build and unhidden by group.js, so a visitor without
+   JavaScript is not shown a control that cannot do anything. They still get
+   the full list, grouped by place. */
+.events-nav {
+  margin-bottom: var(--gutter);
+}
+/* One row per kind of thing: the workshops, however they are grouped at the
+   moment, and the retreats, festivals and art shows at the foot of the page.
+   The label says which, so the row of place names is not mistaken for a
+   listing of everything on the page. */
+.events-nav-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+}
+.events-nav-row + .events-nav-row { margin-top: 0.75rem; }
+.events-nav .area-index ul { margin-bottom: 0; }
+/* An event type with nothing coming up: named, so people can see the guild
+   lists retreats, festivals and art shows at all, but not a link into an
+   empty section. Same thinking as a type filter with nothing behind it. */
+.nav-empty {
+  display: block;
+  font-family: "open-sans-condensed", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1;
+  /* Keeps the maroon so the row reads as one set, the way an empty type
+     filter keeps its blue, but the border goes dashed and nothing happens on
+     hover. Greying it out dropped the contrast below AA against the cream. */
+  color: var(--maroon);
+  padding: 0.45em 0.8em;
+  border: 1px dashed var(--gold);
+  border-radius: 999px;
+  cursor: default;
+}
+.nav-label {
+  font-family: "open-sans-condensed", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--light-green);
+}
+
+.sort-by {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.sort-by-label {
+  font-family: "open-sans", Arial, Helvetica, sans-serif;
+  font-size: 0.9rem;
+  color: var(--font-black);
+}
+.sort-by-buttons {
+  display: inline-flex;
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.sort-opt {
+  font-family: "open-sans-condensed", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--maroon);
+  background: transparent;
+  border: 0;
+  padding: 0.45em 0.9em;
+  cursor: pointer;
+}
+.sort-opt + .sort-opt { border-left: 1px solid var(--gold); }
+.sort-opt:hover { background: var(--background-dark); }
+.sort-opt[aria-pressed="true"] {
+  background: var(--maroon);
+  color: var(--font-white);
 }
 
 /* ---- Fixed reflowing card grid (e.g. Past events) --------- */

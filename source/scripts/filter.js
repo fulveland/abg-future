@@ -90,6 +90,10 @@
         d.scrollLeft = 0;
       });
       window.dispatchEvent(new Event("resize"));
+
+      // The index of places above the grid follows the headings; tell it the
+      // headings have changed so it can hide links to groups now empty.
+      window.dispatchEvent(new CustomEvent("abg:filterchange"));
     }
 
     // A filter with nothing behind it is a dead end, so leave it as plain

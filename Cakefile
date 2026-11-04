@@ -37,11 +37,16 @@ buildDate = -> new Date().toISOString().slice(0, 10)
 # last good version, so a typo delays a change rather than breaking the site.
 # Run `cake check` on its own to see the problems without building.
 
-EVENT_FIELDS    = "id workshopName type date area location teacher host image imageAlt category soldOut registration contact".split " "
+EVENT_FIELDS    = "id workshopName type date area location teacher host image imageAlt category material soldOut registration contact".split " "
 PAST_FIELDS     = EVENT_FIELDS.concat "highlight photoAlbums photographer".split " "
 OPP_FIELDS      = "id title kind date area location organizer summary image imageAlt contact".split " "
 DATE_KEYS       = "display start end recurring ongoing".split " "
 EVENT_TYPES     = "Workshop Retreat Exhibit Other Open Weave".split " "
+# What the thing is made of. The events page can group by material as well as
+# by place, and only three sections show on the site for now — Willow, Brooms,
+# and Misc for everything else — but the data keeps the real material so the
+# sections can be split out later without re-tagging the back catalogue.
+MATERIALS       = ["willow", "pine needle", "cattail", "bulrush", "reed", "seagrass", "birch bark", "bark", "textile", "broom", "mixed"]
 REG_TYPES       = "link waitlist email instagram none".split " "
 MONTHS          = "January February March April May June July August September October November December".split " "
 
@@ -97,13 +102,20 @@ checkData = ->
     # 6. Known vocabulary only.
     add where, "unknown type \"#{e.type}\"" if e.type and e.type not in EVENT_TYPES
     add where, "unknown category \"#{e.category}\"" if e.category and e.category not in CATEGORY_ORDER
+    # Places order the events page north to south, so a new one needs a slot in
+    # AREA_ORDER. Until it has one it lands at the bottom of the towns, which is
+    # wrong rather than merely unsorted, so say so.
+    # material is a string or a list of them; every value must be known.
+    for mat in materialsOf e
+      add where, "unknown material \"#{mat}\" — one of: #{MATERIALS.join ", "}" unless mat in MATERIALS
+    add where, "area \"#{e.area}\" is not in AREA_ORDER — add it in the Cakefile, in latitude order" if e.area and e.area isnt ONLINE_AREA and e.area not in AREA_ORDER
     for link in [e.registration, e.contact] when link?.type
       add where, "unknown registration/contact type \"#{link.type}\"" unless link.type in REG_TYPES
 
   seen = {}
   for [file, key, allowed, required] in [
-    ["events.json",        "events",        EVENT_FIELDS, ["id", "workshopName", "date", "area", "location", "category", "registration"]]
-    ["past-events.json",   "pastEvents",    PAST_FIELDS,  ["id", "workshopName", "date", "area"]]
+    ["events.json",        "events",        EVENT_FIELDS, ["id", "workshopName", "date", "area", "location", "category", "material", "registration"]]
+    ["past-events.json",   "pastEvents",    PAST_FIELDS,  ["id", "workshopName", "date", "area", "material"]]
     ["opportunities.json", "opportunities", OPP_FIELDS,   ["id", "title", "date", "area"]]
   ]
     data = readJSON "source/data/#{file}"
@@ -238,8 +250,20 @@ eventCard = (ev)->
   # entries carry no data-until and are never dropped.
   lastDay = if ev.date?.recurring then null else (ev.date?.end or ev.date?.start)
   untilAttr = if lastDay then ' data-until="' + esc(lastDay) + '"' else ""
+  # data-material is what the "Sort by material" view groups on in the browser.
+  mats = materialsOf ev
+  # Comma-separated, not space-separated: material names have spaces in them
+  # ("pine needle", "birch bark").
+  matAttr = if mats.length then ' data-material="' + esc(mats.join ",") + '"' else ""
+  # data-tail marks a card belonging to one of the sections at the foot of the
+  # page, so the browser does not have to work that out a second time.
+  tks = tailKeys ev
+  tailAttr = if tks.length then ' data-tail="' + tks.join(",") + '"' else ""
+  # The same event can be rendered more than once, so the card carries its id
+  # and the browser can tell a second copy from a second event.
+  idAttr = if ev.id then ' data-event-id="' + esc(ev.id) + '"' else ""
   [
-    '<article class="card"' + typeAttr + untilAttr + '>'
+    '<article class="card"' + typeAttr + untilAttr + matAttr + tailAttr + idAttr + '>'
     mediaHTML ev
     '<div class="card-body">'
     badge
@@ -316,13 +340,184 @@ CATEGORY_ORDER = [
   "Calls for Submission"
 ]
 
-upcomingCards = (limit)->
+# ---- Places, north to south ----------------------------------------------
+# The events page groups by place, not by category. Someone scanning the list
+# is asking "what is near me", and category grouping put almost everything
+# under one "Community Events" heading anyway, which sorted nothing.
+#
+# Places run down the page by latitude, north first, because that is the way a
+# map reads. The latitudes are town centres and are not used in code — the
+# order of this list is what matters — but they are written down so a new place
+# can be slotted into the right gap without anyone having to guess.
+AREA_ORDER = [
+  "Beaverlodge"   # 55.21
+  "Gainford"      # 53.59
+  "Edmonton"      # 53.53
+  "Tofield"       # 53.37
+  "Devon"         # 53.36
+  "New Sarepta"   # 53.25
+  "Yeoford"       # about 52.4, a hamlet in Lacombe County, north of Red Deer
+  "Red Deer"      # 52.27
+  "Canmore"       # 51.09
+  "Calgary"       # 51.05
+  "Bragg Creek"   # 50.95
+  "Millarville"   # 50.76
+]
+
+# Two sections sit below every place. Online belongs to no latitude, and broom
+# workshops are their own thing wherever they happen, so they gather at the
+# foot of the page rather than scattering through the towns. A workshop lands
+# in Brooms by its name, so nothing has to be tagged by hand: call it a broom
+# or a besom and it goes there, and it appears there INSTEAD of under its town,
+# never in both.
+ONLINE_AREA = "Online"
+
+# Sorting by material shows three sections for now, not ten: Willow, then
+# Misc for everything else, then the tail below. Freyja's call, 2026-11-04 —
+# most events are willow, so ten headings would be one long section and nine
+# stubs. The data keeps the real material, so a section can be split out later
+# without re-tagging anything. That grouping is done in the browser, so the
+# list of sections lives in source/scripts/group.js.
+
+# The event types that get a section of their own at the foot of the page, in
+# this order, in both views. Everything else — workshops, open weaves, talks,
+# demonstrations — is grouped by place, or by material when the visitor asks
+# for that.
+#
+# These sections are ADDITIONAL in the place view: Baskets in the Garden is
+# listed under Tofield and again under Retreats. In the material view they are
+# not broken down by material, because sorting by material is a question about
+# workshops. Freyja's calls, 2026-11-04.
+#
+# Brooms was a section here briefly. It is not any more: a broom workshop sits
+# with the other workshops in its town, and has a material section of its own
+# in the material view instead.
+#
+# Membership is decided here and written onto the card as data-tail, so the
+# browser groups by the same rule rather than by a second copy of it that
+# could drift out of step.
+TAIL_SECTIONS = [
+  { key: "retreats",  label: "Retreats",  test: (e)-> e.type is "Retreat" }
+  { key: "festivals", label: "Festivals", test: (e)-> e.category is "Festivals" }
+  { key: "artshows",  label: "Art Shows", test: (e)-> e.category is "Art Shows" }
+]
+
+# An event can be made of more than one thing — the Sheep Creek open weave is
+# willow and whatever people bring — so `material` is either a string or a
+# list of them. It then shows under each of those material sections.
+materialsOf = (ev)->
+  m = ev?.material
+  return [] unless m
+  if Array.isArray m then m else [m]
+
+# Which foot-of-page sections an event belongs to. It can be in more than one,
+# and being in one does NOT take it out of its town or its material: a card is
+# allowed to appear twice. Freyja's call, 2026-11-04 — Baskets in the Garden
+# belongs under Tofield and under Retreats both.
+tailKeys = (ev)->
+  sec.key for sec in TAIL_SECTIONS when sec.test ev
+
+anchorSlug = (s)->
+  String(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "")
+
+# Every upcoming event, soonest first. Recurring entries ("Third Tuesday of
+# each month") have no end date and never fall out.
+upcomingList = ->
   data = readJSON "source/data/events.json"
-  return "" unless data?.events
+  return [] unless data?.events
   today = buildDate()
   evs = data.events.filter (e)->
     e.date?.recurring or ((e.date?.end or e.date?.start or "9999") >= today)
   evs.sort byStart
+  evs
+
+# The ordered sections of the events page. Shared by the grid and by the index
+# of places above it, so the two can never disagree about what is on the page.
+upcomingGroups = ->
+  evs = upcomingList()
+  return [] if evs.length is 0
+  # Sections overlap rather than divide: every event is listed under its town,
+  # and again under any foot-of-page section it belongs to.
+  tails = TAIL_SECTIONS.map (sec)-> evs.filter (e)-> sec.key in tailKeys e
+  rest  = evs
+
+  present = []
+  for e in rest
+    a = e.area or ""
+    present.push a unless a in present
+  known   = AREA_ORDER.filter (a)-> a in present
+  # A place nobody has given a latitude yet still gets a heading, after the
+  # ones we have placed. checkData nags about it so it does not stay that way.
+  unknown = present.filter((a)-> a isnt ONLINE_AREA and a not in AREA_ORDER).sort()
+
+  groups = []
+  for a in known.concat unknown
+    groups.push
+      label:  a
+      slug:   "area-" + anchorSlug(a)
+      events: rest.filter (e)-> (e.area or "") is a
+  online = rest.filter (e)-> (e.area or "") is ONLINE_AREA
+  groups.push { label: ONLINE_AREA, slug: "area-online", events: online } if online.length
+  for sec, i in TAIL_SECTIONS when tails[i].length
+    groups.push { label: sec.label, slug: "tail-" + sec.key, events: tails[i] }
+  groups
+
+# What sits above the grid: the sort control, and an index of the sections
+# below it. The page is one long list, so the index is the short way down to
+# the part you want.
+#
+# The build renders the page grouped by place, and the index to match. The
+# "Material" view is the browser's job (group.js): it regroups the cards that
+# are actually on the page and rewrites this index to suit. The control is
+# therefore rendered hidden and unhidden by that script, so a visitor without
+# JavaScript is never shown a button that does nothing. They still get the
+# whole list, grouped by place.
+eventsNav = ->
+  groups = upcomingGroups()
+  return "" if groups.length is 0
+  isTail = (g)-> g.slug.indexOf("tail-") is 0
+  link = (g)->
+    '<li><a href="#' + g.slug + '" data-area-link="' + g.slug + '">' + esc(g.label) + '</a></li>'
+  shops = (link g for g in groups when not isTail g)
+
+  # The other event types are always listed, in the same order, whether or not
+  # anything is coming up. One with nothing behind it is a dead end, so it is
+  # plain text rather than a link into an empty section — the same treatment
+  # the type filters get. It wakes up on its own when an event of that kind is
+  # listed. Freyja asked for the row to be there always, 2026-11-04.
+  rest = for sec in TAIL_SECTIONS
+    g = (x for x in groups when x.slug is "tail-" + sec.key)[0]
+    if g
+      link g
+    else
+      '<li><span class="nav-empty" data-area-empty="tail-' + sec.key + '">' + esc(sec.label) + '</span></li>'
+
+  [
+    '<div class="events-nav">'
+    '<div class="events-nav-row">'
+    '<span class="nav-label" id="nav-workshops">Workshops</span>'
+    '<span class="sort-by" hidden>'
+    '<span class="sort-by-label" id="sort-by-label">by</span>'
+    '<span class="sort-by-buttons" role="group" aria-labelledby="sort-by-label">'
+    '<button type="button" class="sort-opt" data-sort="place" aria-pressed="true">Place</button>'
+    '<button type="button" class="sort-opt" data-sort="material" aria-pressed="false">Material</button>'
+    '</span>'
+    '</span>'
+    '<nav class="area-index" data-nav="workshops" aria-labelledby="nav-workshops">'
+    '<ul>' + shops.join("\n") + '</ul>'
+    '</nav>'
+    '</div>'
+    '<div class="events-nav-row" data-row="other">'
+    '<span class="nav-label" id="nav-other">Other events</span>'
+    '<nav class="area-index" data-nav="other" aria-labelledby="nav-other">'
+    '<ul>' + rest.join("\n") + '</ul>'
+    '</nav>'
+    '</div>'
+    '</div>'
+  ].join "\n"
+
+upcomingCards = (limit)->
+  evs = upcomingList()
   return '<p class="empty">No upcoming events right now &mdash; check back soon.</p>' if evs.length is 0
   # Limited call (the home page carousel) stays a flat run of cards, and drops
   # sold-out events — the carousel is a teaser, so it should only show things
@@ -331,19 +526,14 @@ upcomingCards = (limit)->
     live = evs.filter (e)-> not e.soldOut
     return '<p class="empty">No upcoming events right now &mdash; check back soon.</p>' if live.length is 0
     return live.slice(0, limit).map(eventCard).join "\n"
-  # Unlimited call (the events page grid) groups by doc category, with a
-  # full-width heading before each group. .grid-head spans the grid row, so
-  # this still lives inside the page's single .card-grid.
-  present = []
-  for e in evs
-    cat = e.category or "Community Events"
-    present.push cat unless cat in present
-  ordered = CATEGORY_ORDER.filter (c)-> c in present
-  ordered = ordered.concat present.filter (c)-> c not in CATEGORY_ORDER
+  # Unlimited call (the events page grid) groups by place, with a full-width
+  # heading before each group. .grid-head spans the grid row, so this still
+  # lives inside the page's single .card-grid. The id is what the index links
+  # to, and what expire.js and filter.js remove or hide along with the group.
   out = []
-  for cat in ordered
-    out.push '<h3 class="grid-head">' + esc(cat) + '</h3>'
-    out.push evs.filter((e)-> (e.category or "Community Events") is cat).map(eventCard).join("\n")
+  for g in upcomingGroups()
+    out.push '<h3 class="grid-head" id="' + g.slug + '">' + esc(g.label) + '</h3>'
+    out.push g.events.map(eventCard).join("\n")
   out.join "\n"
 
 # The Past grid is past-events.json PLUS anything still sitting in events.json
@@ -524,6 +714,7 @@ supplierList = ->
   ).join "\n"
 
 renderEvents = (html)->
+  html = html.replace /\{\{EVENTS_INDEX\}\}/g, -> eventsNav()
   html = html.replace /\{\{EVENTS_UPCOMING:(\d+)\}\}/g, (m, n)-> upcomingCards parseInt(n, 10)
   html = html.replace /\{\{EVENTS_UPCOMING\}\}/g, -> upcomingCards null
   html = html.replace /\{\{EVENTS_PAST\}\}/g, -> pastCards()

@@ -37,9 +37,11 @@
   // in the Cakefile. Sorting by material is a question about workshops, so
   // these sections are not broken down by material — they are appended whole.
   var TAIL_SECTIONS = [
-    { key: "retreats",  slug: "tail-retreats",  label: "Retreats" },
-    { key: "festivals", slug: "tail-festivals", label: "Festivals" },
-    { key: "artshows",  slug: "tail-artshows",  label: "Art Shows" }
+    { key: "openweave",  slug: "tail-openweave",  label: "Open Weave" },
+    { key: "retreats",   slug: "tail-retreats",   label: "Retreats" },
+    { key: "festivals",  slug: "tail-festivals",  label: "Festivals" },
+    { key: "artshows",   slug: "tail-artshows",   label: "Art Shows" },
+    { key: "craftsales", slug: "tail-craftsales", label: "Craft Sales" }
   ];
 
   var grid, shopList, otherList, snapshot, mode = "place";

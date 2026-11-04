@@ -293,8 +293,10 @@
   margin: 0;
   grid-column: 1 / -1;   /* span the whole card-grid row */
   /* Jumping here from the index should not park the heading against the very
-     top of the window, with its first row of cards half off-screen. */
-  scroll-margin-top: 1.5rem;
+     top of the window, with its first row of cards half off-screen — nor
+     underneath the sticky events nav. --nav-h is that bar's measured height,
+     written by stick.js; it is 0 on pages that have no bar. */
+  scroll-margin-top: calc(var(--nav-h, 0px) + 1.5rem);
 }
 
 /* ---- A workshop that is sold out -------------------------- */
@@ -375,7 +377,23 @@
    the full list, grouped by place. */
 .events-nav {
   margin-bottom: var(--gutter);
+  /* The bar follows you down the page, so the way to another town is always
+     to hand. Freyja, 2026-11-04. The background must be opaque or the cards
+     scroll through it, and z-index has to clear their shadow. .panel-inner
+     is a grid and a sticky grid item travels fine; it would stop dead inside
+     an ancestor with `overflow` set, which is worth remembering if this ever
+     moves. */
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--background);
+  padding-block: 0.75rem;
 }
+/* Without JavaScript the bar is never measured and never compacts, so the
+   headings need a scroll-margin big enough for it at full height. Scoped to
+   the page that actually has a bar. stick.js overrides this with the real
+   height, inline on this same element. */
+.panel-inner:has(.events-nav) { --nav-h: 8rem; }
 /* One row per kind of thing: the workshops, however they are grouped at the
    moment, and the retreats, festivals and art shows at the foot of the page.
    The label says which, so the row of place names is not mistaken for a
@@ -794,4 +812,33 @@
   /* Cards peek; swipe to scroll (arrows hidden) */
   .deck > * { flex-basis: min(78%, var(--card-min)); }
   .deck-controls { display: none; }
+}
+
+/* ---- The sticky events nav, once it is actually stuck ------ */
+/* Two rows is a third of a phone screen to give up for the whole scroll, so
+   on small screens the bar tightens when it pins: each row becomes one line
+   you swipe along instead of three wrapped ones. Desktop has the room and
+   keeps the bar as it is. stick.js adds .is-stuck; without it nothing here
+   ever applies and the bar simply stays full size. Freyja, 2026-11-04. */
+@media (max-width: 48em) {
+  .events-nav.is-stuck {
+    padding-block: 0.4rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.07);
+  }
+  .events-nav.is-stuck .events-nav-row { gap: 0.35rem 0.6rem; }
+  .events-nav.is-stuck .events-nav-row + .events-nav-row { margin-top: 0.35rem; }
+  /* min-width lets the list shrink inside the flex row; without it the row
+     grows to fit and scrolls the page sideways instead. */
+  .events-nav.is-stuck .area-index {
+    min-width: 0;
+    flex: 1 1 0;
+  }
+  .events-nav.is-stuck .area-index ul {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;        /* the row of chips is its own affordance */
+  }
+  .events-nav.is-stuck .area-index ul::-webkit-scrollbar { display: none; }
+  .events-nav.is-stuck .area-index a,
+  .events-nav.is-stuck .nav-empty { white-space: nowrap; }
 }

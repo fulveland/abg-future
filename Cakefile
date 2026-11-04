@@ -401,9 +401,11 @@ ONLINE_AREA = "Online"
 # browser groups by the same rule rather than by a second copy of it that
 # could drift out of step.
 TAIL_SECTIONS = [
-  { key: "retreats",  label: "Retreats",  test: (e)-> e.type is "Retreat" }
-  { key: "festivals", label: "Festivals", test: (e)-> e.category is "Festivals" }
-  { key: "artshows",  label: "Art Shows", test: (e)-> e.category is "Art Shows" }
+  { key: "openweave",  label: "Open Weave",  test: (e)-> e.type is "Open Weave" }
+  { key: "retreats",   label: "Retreats",    test: (e)-> e.type is "Retreat" }
+  { key: "festivals",  label: "Festivals",   test: (e)-> e.category is "Festivals" }
+  { key: "artshows",   label: "Art Shows",   test: (e)-> e.category is "Art Shows" }
+  { key: "craftsales", label: "Craft Sales", test: (e)-> e.category is "Craft Sale" }
 ]
 
 # An event can be made of more than one thing — the Sheep Creek open weave is
@@ -572,6 +574,28 @@ pastCards = ->
     continue if seen[e.id]                 # already curated in past-events.json
     last = e.date?.end or e.date?.start
     evs.push e if last and last < today
+
+  # A workshop that has run several times shows once, as its most recent
+  # outing — eight Berry Baskets down the page told a visitor nothing the
+  # first one did not. Same workshop means same name AND same person running
+  # it: the teacher, or the host when there is no teacher, which is exactly
+  # who the card names. Freyja, 2026-11-04.
+  #
+  # This is a display rule, not an edit. Every run stays in the data, so the
+  # older ones come back if the rule ever changes, and the archiver can keep
+  # filing them without having to know about any of this. Note that a curated
+  # past-events.json entry does NOT outrank a later run of the same workshop:
+  # if a highlight disappears, a newer outing has superseded it, and the
+  # highlight belongs on that one instead.
+  whoOf = (e)-> e.teacher or e.host or ""
+  keyOf = (e)-> (e.workshopName or e.id or "") + "\u0000" + whoOf e
+  newest = {}
+  for e in evs
+    k = keyOf e
+    was = newest[k]
+    newest[k] = e unless was and (was.date?.start or "") >= (e.date?.start or "")
+  evs = (e for e in evs when newest[keyOf e] is e)
+
   return '<p class="empty">Past event highlights will appear here.</p>' if evs.length is 0
   evs.sort (a, b)->
     return -1 if a.highlight and not b.highlight

@@ -39,7 +39,7 @@ buildDate = -> new Date().toISOString().slice(0, 10)
 
 EVENT_FIELDS    = "id workshopName type date area location teacher host image imageAlt category material soldOut registration contact".split " "
 PAST_FIELDS     = EVENT_FIELDS.concat "highlight photoAlbums photographer".split " "
-OPP_FIELDS      = "id title kind date area location organizer summary image imageAlt contact".split " "
+OPP_FIELDS      = "id title kind date area location organizer summary details image imageAlt contact".split " "
 DATE_KEYS       = "display start end recurring ongoing".split " "
 EVENT_TYPES     = "Workshop Retreat Exhibit Other Open Weave".split " "
 # What the thing is made of. The events page can group by material as well as
@@ -109,8 +109,21 @@ checkData = ->
     for mat in materialsOf e
       add where, "unknown material \"#{mat}\" — one of: #{MATERIALS.join ", "}" unless mat in MATERIALS
     add where, "area \"#{e.area}\" is not in places.json — add { \"name\": \"#{e.area}\", \"lat\": <latitude>, \"note\": null } to source/data/places.json; the order sorts itself" if e.area and e.area not in SPECIAL_AREAS and e.area not in areaOrder()
-    for link in [e.registration, e.contact] when link?.type
+    links = [e.registration]
+    links = links.concat(if Array.isArray e.contact then e.contact else [e.contact])
+    for link in links when link?.type
       add where, "unknown registration/contact type \"#{link.type}\"" unless link.type in REG_TYPES
+      # Each type reads a different key, and the wrong one fails silently: an
+      # email registration carrying `url` renders an empty mailto, and nobody
+      # notices until someone clicks it. Caught here instead. 2026-11-06.
+      switch link.type
+        when "link", "waitlist", "instagram"
+          add where, "#{link.type} needs \"url\"" unless link.url
+          add where, "#{link.type} has an \"email\" — it reads \"url\"" if link.email
+        when "email"
+          add where, "email needs \"email\"" unless link.email
+          add where, "email has a \"url\" — it reads \"email\"" if link.url
+          add where, "email \"#{link.email}\" is not an address" if link.email and "@" not in link.email
 
   seen = {}
   for [file, key, allowed, required] in [
@@ -643,8 +656,13 @@ pastCards = ->
 #   {{OPPORTUNITIES}}    -> all current opportunities
 #   {{OPPORTUNITIES:3}}  -> up to 3
 
+# `contact` is one way to respond, or a list of them — Weaving Connections
+# wants a form filled in but should still take an email, and the panel has room
+# for both. A single object still works; a list renders in order, so put the
+# one you most want clicked first. 2026-11-06.
 contactHTML = (c) ->
   return "" unless c
+  return (contactHTML x for x in c).filter((h)-> h isnt "").join("\n") if Array.isArray c
   switch c.type
     when "email"
       return "" unless c.email and c.email.indexOf("@") > 0
@@ -657,29 +675,64 @@ contactHTML = (c) ->
       '<a class="reg" href="' + esc(c.url) + '">' + esc(c.label or "Send DM") + '</a>'
     else ""
 
+# An opportunity is a different kind of thing from a workshop — it is someone
+# asking, not something to book — so its card does not pretend to be an event
+# card. No photo, a quieter note-like face, and the whole card opens a panel
+# with the full ask and the way to answer it. Freyja, 2026-11-04.
+#
+# The panel is the HTML popover attribute: the browser opens it, puts it in the
+# top layer, closes it on Esc or a click outside, and moves focus. No script of
+# ours is involved, which is the house preference. Where popover is not
+# supported the panel simply renders in place, below the card, which is a fair
+# fallback: everything is still readable and the contact link still works.
+oppPanel = (op)->
+  pid = "opp-" + sluggify(op.id or op.title)
+  rows = []
+  rows.push '<p class="opp-row"><span>When</span> ' + esc(op.date.display) + '</p>' if op.date?.display
+  rows.push '<p class="opp-row"><span>Where</span> ' + esc(op.area) + '</p>' if op.area
+  rows.push '<p class="opp-row"><span>Venue</span> ' + esc(op.location) + '</p>' if op.location
+  rows.push '<p class="opp-row"><span>From</span> ' + esc(op.organizer) + '</p>' if op.organizer
+  body = if op.details then op.details else op.summary
+  [
+    '<div class="opp-panel" id="' + pid + '" popover>'
+    '<div class="opp-panel-inner">'
+    (if op.kind then '<span class="badge badge--kind">' + esc(op.kind) + '</span>' else "")
+    '<h3>' + esc(op.title) + '</h3>'
+    rows.join "\n"
+    (if body then '<p class="opp-body">' + esc(body) + '</p>' else "")
+    '<div class="opp-actions">'
+    contactHTML op.contact
+    '<button type="button" class="opp-close" popovertarget="' + pid + '" popovertargetaction="hide">Close</button>'
+    '</div>'
+    '</div>'
+    '</div>'
+  ].filter((s)-> s isnt "").join "\n"
+
 opportunityCard = (op)->
+  pid = "opp-" + sluggify(op.id or op.title)
   badge   = if op.kind then '<span class="badge badge--kind">' + esc(op.kind) + '</span>' else ""
-  loc     = if op.location then '<p>' + esc(op.location) + '</p>' else ""
-  from    = if op.organizer then '<p class="teacher">From ' + esc(op.organizer) + '</p>' else ""
-  summary = if op.summary then '<p>' + esc(op.summary) + '</p>' else ""
+  from    = if op.organizer then '<p class="opp-from">From ' + esc(op.organizer) + '</p>' else ""
+  summary = if op.summary then '<p class="opp-summary">' + esc(op.summary) + '</p>' else ""
+  meta    = [op.date?.display, op.area].filter((x)-> x).join " &middot; "
   # Same self-correcting date stamp the event cards carry. Ongoing calls have
   # no closing date, so they get no data-until and stay put.
   lastDay = if op.date?.ongoing then null else (op.date?.end or op.date?.start)
   untilAttr = if lastDay then ' data-until="' + esc(lastDay) + '"' else ""
   [
-    '<article class="card"' + untilAttr + '>'
-    mediaHTML op
+    '<article class="card card--opp"' + untilAttr + '>'
     '<div class="card-body">'
     badge
     '<h3>' + esc(op.title) + '</h3>'
-    '<p>' + esc(op.date?.display or "") + '</p>'
-    '<p>' + esc(op.area or "") + '</p>'
-    loc
+    (if meta then '<p class="opp-meta">' + meta + '</p>' else "")
     from
     summary
-    contactHTML op.contact
+    # The button is the real control; CSS stretches its hit area over the whole
+    # card, so a click anywhere opens the panel without the card itself having
+    # to be a button (a heading cannot live inside one).
+    '<button type="button" class="opp-open" popovertarget="' + pid + '">Read the full ask<span class="visually-hidden">: ' + esc(op.title) + '</span></button>'
     '</div>'
     '</article>'
+    oppPanel op
   ].filter((s)-> s isnt "").join "\n"
 
 opportunityCards = (limit)->

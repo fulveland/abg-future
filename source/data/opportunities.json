@@ -9,9 +9,13 @@
       "location": null,
       "organizer": "Brittany Haduck",
       "summary": "Brittany is looking for helping hands, and for a venue, for the next gathering.",
+      "details": "Brittany Haduck is taking the lead on organizing our next Weaving Connections, and could use a few helping hands to get things growing.\n\nWhether you have experience organizing events, connections within your community, or simply a little time and enthusiasm to offer, there are plenty of ways to get involved. You don't need to take on a big role to make a difference — even one small piece of the puzzle would be appreciated.\n\nBrittany is also looking for a new home for the gathering. The wish list: room for four to six workshops running at once with eight to twenty people in each, and the elbow room that willow whips six to eight feet long need; a kitchen a caterer could work in; sleeping quarters or a heated indoor space for tents; somewhere for vendors; and an open space to sit and weave together.\n\nIt is a wish list, not a list of requirements. Somewhere wonderful that ticks only a few of these boxes is still worth hearing about.\n\nBrittany has also put together a survey, Weaving Connections Feedback and Future Planning, on what has worked and where the gathering should go next. You do not need to have attended before — the first question asks, and it takes you from there. It runs anywhere from five minutes to three quarters of an hour, depending on how much you have to say.\n\nWeaving Connections has traditionally been held on the second weekend of March. Depending on the venue, those dates may shift.",
       "image": null,
       "imageAlt": null,
-      "contact": { "type": "email", "name": "Brittany Haduck", "email": "brittany@albertabasketryguild.com", "label": "Email Brittany" }
+      "contact": [
+        { "type": "link", "name": "Weaving Connections Feedback/Future Planning", "url": "https://docs.google.com/forms/d/e/1FAIpQLSdofXkGH55XhvBIFjW3T_-GOHDOTWMuJaCM3QkFckMn4Ur0dg/viewform", "label": "Fill out the survey" },
+        { "type": "email", "name": "Brittany Haduck", "email": "brittany@albertabasketryguild.com", "label": "Email Brittany" }
+      ]
     },
     {
       "id": "edmonton-willow-mentor-wanted-2026-11",
@@ -22,6 +26,7 @@
       "location": null,
       "organizer": "Ashley",
       "summary": "A newer weaver hoping to learn from someone around Edmonton or Sherwood Park.",
+      "details": "Ashley is looking for a mentor, or simply a connection, in the Edmonton and Sherwood Park area.\n\nShe has taken a couple of classes this year, at Weaving Connections and at Baskets in the Garden, and it feels like a craft she has a natural affinity for. She would like to deepen her knowledge of all things basketry — willow selection and harvesting as much as the weaving itself.\n\nAny connections in the area would be greatly appreciated. Get in touch with the guild and we will pass your name on.",
       "image": null,
       "imageAlt": null,
       "contact": { "type": "email", "name": "Alberta Basketry Guild", "email": "mail@albertabasketryguild.com", "label": "Put us in touch" }

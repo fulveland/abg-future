@@ -12,6 +12,7 @@
     { "name": "Canmore",       "lat": 51.09,  "note": null },
     { "name": "Calgary",       "lat": 51.05,  "note": null },
     { "name": "Bragg Creek",   "lat": 50.95,  "note": null },
-    { "name": "Millarville",   "lat": 50.76,  "note": null }
+    { "name": "Millarville",   "lat": 50.76,  "note": null },
+    { "name": "Fort Macleod", "lat": 49.72,  "note": null }
   ]
 }

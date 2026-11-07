@@ -889,6 +889,21 @@
       "registration": { "type": "link", "url": "https://www.eventbrite.ca/e/weave-your-own-stool-tickets-2000283442623" }
     },
     {
+      "id": "fort-macleod-basket-weaving-2026-11-29",
+      "workshopName": "Basket Weaving Workshop",
+      "type": "Workshop",
+      "date": { "display": "November 29, 2026", "start": "2026-11-29", "end": null },
+      "area": "Fort Macleod",
+      "location": "Fort Macleod Allied Arts",
+      "teacher": "Candice Cullum of Full Baskets",
+      "host": "Fort Macleod Allied Arts",
+      "image": null,
+      "category": "Community Events",
+      "material": "willow",
+      "soldOut": false,
+      "registration": { "type": "email", "email": "fmalliedarts@gmail.com", "host": "Fort Macleod Allied Arts" }
+    },
+    {
       "id": "calgary-weave-your-own-stool-2027-01-16",
       "workshopName": "Weave Your Own Stool",
       "type": "Workshop",

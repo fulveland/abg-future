@@ -165,7 +165,8 @@
 }
 
 /* Event-card extras (data-driven cards) */
-.card .badge {
+.card .badge,
+.opp-panel .badge {
   align-self: flex-start;
   background: var(--red);
   color: var(--font-white);
@@ -177,16 +178,19 @@
   border-radius: 999px;
   margin-bottom: 0.35rem;
 }
-.card .teacher {
+.card .teacher,
+.opp-panel .teacher {
   font-style: italic;
 }
 
 /* Opportunity kind (Volunteer / Teach / Harvest …). Same shape as the sold-out
    badge but olive, so red stays reserved for "you can't book this". */
-.card .badge--kind {
+.card .badge--kind,
+.opp-panel .badge--kind {
   background: var(--light-green);
 }
-.card a.reg {
+.card a.reg,
+.opp-panel a.reg {
   align-self: flex-start;
   margin-top: auto;
   background: var(--yellow);
@@ -197,7 +201,8 @@
   padding: 0.4em 1.1em;
   border-radius: var(--radius);
 }
-.card a.reg:hover { background: var(--maroon); }
+.card a.reg:hover,
+.opp-panel a.reg:hover { background: var(--maroon); }
 
 /* The CTA is bottom-aligned (margin-top:auto), so in a densely packed card —
    one with a long address, say — it ends up flush against the last line of
@@ -840,4 +845,152 @@
   .events-nav.is-stuck .area-index ul::-webkit-scrollbar { display: none; }
   .events-nav.is-stuck .area-index a,
   .events-nav.is-stuck .nav-empty { white-space: nowrap; }
+}
+
+/* ---- Opportunity cards and their panels ------------------- */
+/* An opportunity is someone asking, not something to book, so its card does
+   not pretend to be a workshop card: no photo, a flat note-like face with a
+   dashed gold edge. The whole card opens a panel holding the full ask and the
+   way to answer it. Freyja, 2026-11-04. */
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0; border: 0;
+  clip-path: inset(50%);
+  overflow: hidden; white-space: nowrap;
+}
+
+.card--opp {
+  position: relative;
+  background: var(--background-dark);
+  border: 1px dashed var(--gold);
+  box-shadow: none;
+}
+.card--opp:hover {
+  border-style: solid;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.10);
+}
+/* The focus ring belongs on the card, not on the small line of text whose hit
+   area has been stretched over it. */
+.card--opp:has(.opp-open:focus-visible) {
+  outline: 2px solid var(--maroon);
+  outline-offset: 2px;
+}
+.card--opp .opp-meta,
+.card--opp .opp-from {
+  margin: 0 0 0.25rem;
+}
+.card--opp .opp-from { font-style: italic; }
+.card--opp .opp-summary { margin: 0.5rem 0 0; }
+
+/* The real control. Its ::after covers the card, so a click anywhere opens the
+   panel — the card itself cannot be a button, because a heading may not live
+   inside one. */
+.opp-open {
+  font-family: "open-sans-condensed", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--maroon);
+  background: none;
+  border: 0;
+  padding: 0;
+  margin-top: auto;
+  padding-top: 1rem;
+  text-align: left;
+  cursor: pointer;
+}
+.opp-open::after { content: ""; position: absolute; inset: 0; }
+.card--opp:hover .opp-open { text-decoration: underline; }
+
+/* The panel is the browser's own popover: it opens it, lifts it to the top
+   layer, dims the page behind, closes on Esc or a click outside, and handles
+   focus. None of that is ours to write. */
+.opp-panel[popover] {
+  width: min(34rem, calc(100vw - 2rem));
+  max-height: min(80vh, 44rem);
+  overflow: auto;
+  margin: auto;
+  padding: 0;
+  border: 1px solid var(--gold);
+  border-radius: var(--radius);
+  background: var(--background);
+  color: var(--font-black);
+}
+.opp-panel::backdrop { background: rgba(41, 38, 31, 0.5); }
+.opp-panel-inner { padding: clamp(1.25rem, 4vw, 2rem); }
+/* The panel is not a .card, so the page's base rules land on it: `p` carries
+   padding: 1em and `h3` is dark blue. Both are wrong here. */
+.opp-panel p { padding: 0; }
+.opp-panel h3 {
+  font-family: "open-sans-condensed", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: var(--light-green);
+  margin: 0.5rem 0 1rem;
+}
+.opp-row { margin: 0 0 0.4rem; }
+.opp-row span {
+  display: inline-block;
+  min-width: 4.5rem;
+  font-family: "open-sans-condensed", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--light-green);
+}
+/* Keeps the paragraph breaks written into `details` in the JSON. */
+.opp-body { margin-top: 1rem; white-space: pre-line; }
+.opp-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+/* Where a panel offers more than one way to respond, the first is the one we
+   want clicked and the rest are alternatives, so only the first keeps the
+   solid button. 2026-11-06. */
+.opp-actions a.reg ~ a.reg {
+  background: none;
+  color: var(--maroon);
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  font-family: "open-sans-condensed", Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  padding: 0.45em 1.1em;
+}
+.opp-actions a.reg ~ a.reg:hover,
+.opp-actions a.reg ~ a.reg:focus-visible {
+  background: var(--background-dark);
+  color: var(--maroon);
+}
+
+.opp-close {
+  font-family: "open-sans-condensed", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--maroon);
+  background: none;
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  padding: 0.45em 1.1em;
+  cursor: pointer;
+}
+.opp-close:hover,
+.opp-close:focus-visible { background: var(--background-dark); }
+
+/* Where the browser has no popover, the panel is simply part of the page,
+   under its card, and the button that would have opened it is pointless.
+   Everything stays readable and the contact link still works. */
+@supports not selector(:popover-open) {
+  .opp-open { display: none; }
+  .opp-close { display: none; }
+  .opp-panel {
+    display: block;
+    width: auto;
+    max-height: none;
+    margin: 0 0 var(--gutter);
+    border-style: dashed;
+  }
 }

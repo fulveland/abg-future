@@ -48,7 +48,7 @@
       "category": "Community Events",
       "material": "textile",
       "soldOut": false,
-      "registration": { "type": "email", "email": "nwtbaskets2gmail.com", "host": "Cathie Harper" },
+      "registration": { "type": "email", "email": "nwtbaskets@gmail.com", "host": "Cathie Harper" },
       "contact": { "type": "email", "name": "Cathie Harper", "email": "nwtbaskets@gmail.com", "label": "Email Cathie" },
       "highlight": false,
       "photoAlbums": []
@@ -59,7 +59,7 @@
       "date": { "display": "August 16, 2026", "start": "2026-08-16", "end": null },
       "area": "Devon",
       "location": "Devon Community Centre",
-      "teacher": "Candice Cullum",
+      "teacher": "Candice Cullum of Full Baskets",
       "host": null,
       "image": "devon-mushroom-drying-tray-2026-08-16.jpg",
       "imageAlt": "Morel mushrooms spread out to dry on a round woven willow tray.",

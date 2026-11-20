@@ -8,6 +8,8 @@
     { "name": "Devon",         "lat": 53.36,  "note": null },
     { "name": "New Sarepta",   "lat": 53.25,  "note": null },
     { "name": "Yeoford",       "lat": 52.40,  "note": "approximate — a hamlet in Lacombe County, north of Red Deer" },
+    { "name": "Nordegg", "lat": 52.47, "note": null },
+    { "name": "Rocky Mountain House", "lat": 52.37, "note": null },
     { "name": "Red Deer",      "lat": 52.27,  "note": null },
     { "name": "Canmore",       "lat": 51.09,  "note": null },
     { "name": "Calgary",       "lat": 51.05,  "note": null },
